@@ -1,0 +1,23 @@
+//
+//  MovieListOnTopicHeaderView.swift
+//  TianXin
+//
+//  Created by pretty on 10/9/20.
+//  Copyright © 2020 SDS. All rights reserved.
+//
+
+import UIKit
+
+// height: 270
+class MovieListOnTopicHeaderView: UICollectionReusableView {
+    @IBOutlet weak var coverImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
+    
+    func bind(_ model: TopicViewCellViewModel) {
+        model.cover.map { try? $0?.asURL() }.asDriver(onErrorJustReturn: nil).filterNil()
+            .drive(coverImageView.rx.imageURL).disposed(by: rx.disposeBag)
+        model.title.asDriver().drive(titleLabel.rx.text).disposed(by: rx.disposeBag)
+        model.remark.asDriver().drive(subtitleLabel.rx.text).disposed(by: rx.disposeBag)
+    }
+}

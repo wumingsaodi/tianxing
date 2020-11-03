@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="KXd-xy-mKR">
+            <objects>
+                <viewController storyboardIdentifier="KOKHomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mNs-8G-bug" customClass="KOKHomeViewController" customModule="TianXin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0qK-C0-uIp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="122" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="FGD-x2-p2W">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="Z8O-JW-rxQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kok_header" translatesAutoresizingMaskIntoConstraints="NO" id="Rhr-lB-uvh">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Rhr-lB-uvh" secondAttribute="trailing" id="Ebk-WW-I5H"/>
+                                        <constraint firstItem="Rhr-lB-uvh" firstAttribute="leading" secondItem="Z8O-JW-rxQ" secondAttribute="leading" id="efA-jc-VFH"/>
+                                        <constraint firstItem="Rhr-lB-uvh" firstAttribute="top" secondItem="Z8O-JW-rxQ" secondAttribute="top" id="flE-81-ngr"/>
+                                        <constraint firstAttribute="bottom" secondItem="Rhr-lB-uvh" secondAttribute="bottom" id="ndN-eG-n84"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="KOKGameHallCell" rowHeight="152" id="Zqf-Ej-Szr" customClass="KOKGameHallCell" customModule="TianXin" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="245.5" width="414" height="152"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zqf-Ej-Szr" id="lbE-RX-lYX">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="152"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_caipiao" translatesAutoresizingMaskIntoConstraints="NO" id="gZt-MW-PsO">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="139.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gZt-MW-PsO" firstAttribute="top" secondItem="lbE-RX-lYX" secondAttribute="top" id="3fk-e8-uD6"/>
+                                                <constraint firstAttribute="bottom" secondItem="gZt-MW-PsO" secondAttribute="bottom" constant="12.5" id="GKa-Li-W2c"/>
+                                                <constraint firstAttribute="trailing" secondItem="gZt-MW-PsO" secondAttribute="trailing" constant="20" id="kbf-Ef-JkA"/>
+                                                <constraint firstItem="gZt-MW-PsO" firstAttribute="leading" secondItem="lbE-RX-lYX" secondAttribute="leading" constant="20" id="wMb-Iw-TDJ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="bgView" destination="gZt-MW-PsO" id="zko-ho-smF"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jne-bA-kPV">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rdy-Zb-QjH">
+                                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XoS-wd-ZFk">
+                                                <rect key="frame" x="10" y="11" width="30" height="22"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="GhL-Kz-eOW"/>
+                                                </constraints>
+                                                <state key="normal" image="back"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="VCN-eQ-7tT"/>
+                                            <constraint firstItem="XoS-wd-ZFk" firstAttribute="leading" secondItem="rdy-Zb-QjH" secondAttribute="leading" constant="10" id="bNT-MG-EwO"/>
+                                            <constraint firstItem="XoS-wd-ZFk" firstAttribute="centerY" secondItem="rdy-Zb-QjH" secondAttribute="centerY" id="wh8-RU-YIE"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="rdy-Zb-QjH" secondAttribute="trailing" id="2DI-fm-9az"/>
+                                    <constraint firstItem="rdy-Zb-QjH" firstAttribute="leading" secondItem="jne-bA-kPV" secondAttribute="leading" id="Yhd-S0-Rck"/>
+                                    <constraint firstAttribute="height" constant="88" id="dh2-yL-8Oj"/>
+                                    <constraint firstAttribute="bottom" secondItem="rdy-Zb-QjH" secondAttribute="bottom" id="z0e-TL-TMT"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="NBa-cX-cvZ"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="FGD-x2-p2W" firstAttribute="top" secondItem="0qK-C0-uIp" secondAttribute="top" id="MX3-Bf-eLy"/>
+                            <constraint firstItem="jne-bA-kPV" firstAttribute="top" secondItem="NBa-cX-cvZ" secondAttribute="top" constant="-44" id="RbZ-he-QLd"/>
+                            <constraint firstItem="NBa-cX-cvZ" firstAttribute="trailing" secondItem="FGD-x2-p2W" secondAttribute="trailing" id="jZU-iO-UKS"/>
+                            <constraint firstItem="FGD-x2-p2W" firstAttribute="leading" secondItem="NBa-cX-cvZ" secondAttribute="leading" id="uHC-Tk-YbU"/>
+                            <constraint firstItem="jne-bA-kPV" firstAttribute="leading" secondItem="NBa-cX-cvZ" secondAttribute="leading" id="vFd-tF-yYz"/>
+                            <constraint firstItem="NBa-cX-cvZ" firstAttribute="bottom" secondItem="FGD-x2-p2W" secondAttribute="bottom" id="vFz-9V-NaO"/>
+                            <constraint firstItem="jne-bA-kPV" firstAttribute="trailing" secondItem="NBa-cX-cvZ" secondAttribute="trailing" id="y5u-bD-cPL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="XoS-wd-ZFk" id="pHK-Z8-knk"/>
+                        <outlet property="tableView" destination="FGD-x2-p2W" id="AjM-ti-R4I"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5CC-zc-yM8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="266.66666666666669" y="164.73214285714286"/>
+        </scene>
+        <!--Present View Controller-->
+        <scene sceneID="8Bn-yI-olf">
+            <objects>
+                <viewController storyboardIdentifier="KOKPresentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a6h-D0-L3N" customClass="KOKPresentViewController" customModule="TianXin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SpW-9T-Grb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g3G-cd-9l0">
+                                <rect key="frame" x="0.0" y="358.5" width="414" height="537.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t9X-Kd-pFL">
+                                        <rect key="frame" x="10" y="10" width="394" height="65.5"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jrx-xF-mhF" customClass="KOKMenuItem" customModule="TianXin" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="65.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Jrx-xF-mhF" secondAttribute="height" id="hER-Hg-IID"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="体育"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="iocn_tiyu1"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalImage" value="icon_tiyu2"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedBackgroundImage" value="button_xuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalBackgroundImage" value="button_weizuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                        <color key="value" white="0.40999999999999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleSelectedColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="NO"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZX6-ml-PxF" customClass="KOKMenuItem" customModule="TianXin" customModuleProvider="target">
+                                                <rect key="frame" x="65.5" y="0.0" width="66" height="65.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="ZX6-ml-PxF" secondAttribute="height" id="wfm-MX-NC7"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="真人"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon_zhenren1"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalImage" value="icon_zhenren2"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedBackgroundImage" value="button_xuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalBackgroundImage" value="button_weizuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                        <color key="value" white="0.40999999999999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleSelectedColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G38-nU-4kH" customClass="KOKMenuItem" customModule="TianXin" customModuleProvider="target">
+                                                <rect key="frame" x="131.5" y="0.0" width="65.5" height="65.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="G38-nU-4kH" secondAttribute="height" id="J6U-EH-kdX"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="电竞"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon_dianjing1"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalImage" value="icon_dianjing2"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedBackgroundImage" value="button_xuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalBackgroundImage" value="button_weizuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                        <color key="value" white="0.40999999999999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleSelectedColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ru6-QG-kfi" customClass="KOKMenuItem" customModule="TianXin" customModuleProvider="target">
+                                                <rect key="frame" x="197" y="0.0" width="65.5" height="65.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="ru6-QG-kfi" secondAttribute="height" id="iB5-Kx-hpP"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="彩票"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon_caipiao1"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalImage" value="icon_caipiao2"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedBackgroundImage" value="button_xuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalBackgroundImage" value="button_weizuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                        <color key="value" white="0.40999999999999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleSelectedColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sqn-Et-3qH" customClass="KOKMenuItem" customModule="TianXin" customModuleProvider="target">
+                                                <rect key="frame" x="262.5" y="0.0" width="66" height="65.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="sqn-Et-3qH" secondAttribute="height" id="Tf3-T3-Yay"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="棋牌"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon_qipai1"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalImage" value="icon_qipai2"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedBackgroundImage" value="button_xuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalBackgroundImage" value="button_weizuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                        <color key="value" white="0.40999999999999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleSelectedColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMc-cP-TgO" customClass="KOKMenuItem" customModule="TianXin" customModuleProvider="target">
+                                                <rect key="frame" x="328.5" y="0.0" width="65.5" height="65.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="zMc-cP-TgO" secondAttribute="height" id="nq0-Rc-YPM"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="电子"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon_dianzi1"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalImage" value="icon_dianzi2"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="selectedBackgroundImage" value="button_xuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalBackgroundImage" value="button_weizuanzhong"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSelected" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                        <color key="value" white="0.40999999999999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="titleSelectedColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rxE-My-o5M">
+                                        <rect key="frame" x="0.0" y="75.5" width="414" height="462"/>
+                                        <subviews>
+                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="shM-KI-81f">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="462"/>
+                                            </containerView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="shM-KI-81f" firstAttribute="width" secondItem="2P1-aR-9DN" secondAttribute="width" id="1KF-A3-G2d"/>
+                                            <constraint firstItem="shM-KI-81f" firstAttribute="trailing" secondItem="lpJ-zQ-sGB" secondAttribute="trailing" id="1W3-Vf-35r"/>
+                                            <constraint firstItem="shM-KI-81f" firstAttribute="top" secondItem="lpJ-zQ-sGB" secondAttribute="top" id="7Tb-bq-7ZY"/>
+                                            <constraint firstItem="shM-KI-81f" firstAttribute="leading" secondItem="lpJ-zQ-sGB" secondAttribute="leading" id="TvS-kK-yAF"/>
+                                            <constraint firstItem="shM-KI-81f" firstAttribute="height" secondItem="2P1-aR-9DN" secondAttribute="height" id="ikh-Ha-hhh"/>
+                                            <constraint firstItem="shM-KI-81f" firstAttribute="bottom" secondItem="lpJ-zQ-sGB" secondAttribute="bottom" constant="260" id="yEM-OC-iNA"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="contentLayoutGuide" id="lpJ-zQ-sGB"/>
+                                        <viewLayoutGuide key="frameLayoutGuide" id="2P1-aR-9DN"/>
+                                    </scrollView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="t9X-Kd-pFL" firstAttribute="top" secondItem="g3G-cd-9l0" secondAttribute="top" constant="10" id="1XI-Hn-tCD"/>
+                                    <constraint firstAttribute="trailing" secondItem="t9X-Kd-pFL" secondAttribute="trailing" constant="10" id="2I4-hc-ywa"/>
+                                    <constraint firstItem="rxE-My-o5M" firstAttribute="leading" secondItem="g3G-cd-9l0" secondAttribute="leading" id="51k-Ry-lmt"/>
+                                    <constraint firstAttribute="trailing" secondItem="rxE-My-o5M" secondAttribute="trailing" id="EkH-ou-Dxk"/>
+                                    <constraint firstItem="t9X-Kd-pFL" firstAttribute="leading" secondItem="g3G-cd-9l0" secondAttribute="leading" constant="10" id="U6H-cj-KzK"/>
+                                    <constraint firstItem="rxE-My-o5M" firstAttribute="top" secondItem="t9X-Kd-pFL" secondAttribute="bottom" id="VeP-Tg-1wL"/>
+                                    <constraint firstAttribute="bottom" secondItem="rxE-My-o5M" secondAttribute="bottom" id="rF0-Vm-stZ"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kwf-8A-TjH">
+                                <rect key="frame" x="0.0" y="44" width="414" height="314.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FVG-w2-I3s"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="g3G-cd-9l0" firstAttribute="leading" secondItem="FVG-w2-I3s" secondAttribute="leading" id="7ZJ-9k-CnY"/>
+                            <constraint firstItem="Kwf-8A-TjH" firstAttribute="leading" secondItem="FVG-w2-I3s" secondAttribute="leading" id="RNf-HE-8We"/>
+                            <constraint firstItem="FVG-w2-I3s" firstAttribute="trailing" secondItem="g3G-cd-9l0" secondAttribute="trailing" id="UbP-xp-q7o"/>
+                            <constraint firstItem="FVG-w2-I3s" firstAttribute="trailing" secondItem="Kwf-8A-TjH" secondAttribute="trailing" id="VEp-Yl-xkO"/>
+                            <constraint firstAttribute="bottom" secondItem="g3G-cd-9l0" secondAttribute="bottom" id="oLk-gu-3Ig"/>
+                            <constraint firstItem="g3G-cd-9l0" firstAttribute="top" secondItem="Kwf-8A-TjH" secondAttribute="bottom" id="rm1-5J-2sm"/>
+                            <constraint firstItem="Kwf-8A-TjH" firstAttribute="top" secondItem="FVG-w2-I3s" secondAttribute="top" id="uQM-eG-1Fi"/>
+                            <constraint firstItem="g3G-cd-9l0" firstAttribute="height" secondItem="SpW-9T-Grb" secondAttribute="height" multiplier="0.6" id="yod-04-WVk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundView" destination="Kwf-8A-TjH" id="dBw-zW-fUc"/>
+                        <outlet property="bottomConstraint" destination="oLk-gu-3Ig" id="sCX-7Y-bQG"/>
+                        <outlet property="contentScrollView" destination="rxE-My-o5M" id="A60-Cn-4Hl"/>
+                        <outlet property="stackView" destination="t9X-Kd-pFL" id="iQO-2I-zox"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uFK-eX-ZIY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1073.913043478261" y="164.73214285714286"/>
+        </scene>
+        <!--Game Kind View Controller-->
+        <scene sceneID="RpD-aF-dju">
+            <objects>
+                <viewController storyboardIdentifier="KOKGameKindViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8ya-mb-QCq" customClass="KOKGameKindViewController" customModule="TianXin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="anP-0v-qEk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tfr-Ux-Ow6">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="s4Y-4N-Nzz">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5Ea-BA-aIJ">
+                                        <rect key="frame" x="10" y="10" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="cO3-fe-ayu">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="V91-XG-50g"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Tfr-Ux-Ow6" firstAttribute="top" secondItem="V91-XG-50g" secondAttribute="top" id="2VH-r3-Lnj"/>
+                            <constraint firstItem="Tfr-Ux-Ow6" firstAttribute="leading" secondItem="V91-XG-50g" secondAttribute="leading" id="O6z-EM-sgW"/>
+                            <constraint firstItem="V91-XG-50g" firstAttribute="trailing" secondItem="Tfr-Ux-Ow6" secondAttribute="trailing" id="ggg-3e-jef"/>
+                            <constraint firstItem="V91-XG-50g" firstAttribute="bottom" secondItem="Tfr-Ux-Ow6" secondAttribute="bottom" id="t2Z-eY-jmR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="Tfr-Ux-Ow6" id="qKc-7g-oHs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KDe-cX-Uom" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1074" y="821"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="back" width="10.5" height="18"/>
+        <image name="button_weizuanzhong" width="120" height="118"/>
+        <image name="button_xuanzhong" width="120" height="118"/>
+        <image name="icon_caipiao1" width="25.5" height="25.5"/>
+        <image name="icon_caipiao2" width="21.5" height="21.5"/>
+        <image name="icon_dianjing1" width="30.5" height="22.5"/>
+        <image name="icon_dianjing2" width="26" height="19"/>
+        <image name="icon_dianzi1" width="30" height="24.5"/>
+        <image name="icon_dianzi2" width="19" height="19"/>
+        <image name="icon_qipai1" width="27.5" height="24.5"/>
+        <image name="icon_qipai2" width="21" height="22"/>
+        <image name="icon_tiyu2" width="21" height="21"/>
+        <image name="icon_zhenren1" width="25.5" height="26"/>
+        <image name="icon_zhenren2" width="19" height="21"/>
+        <image name="img_caipiao" width="677" height="175"/>
+        <image name="iocn_tiyu1" width="25" height="24.5"/>
+        <image name="kok_header" width="750" height="348"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

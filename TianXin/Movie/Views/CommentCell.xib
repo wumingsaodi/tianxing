@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="114" id="KGk-i7-Jjw" customClass="CommentCell" customModule="TianXin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="365" height="114"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="365" height="114"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2V7-t9-fJO">
+                        <rect key="frame" x="15" y="22" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="Rc7-HX-pIe"/>
+                            <constraint firstAttribute="height" constant="44" id="qrh-IA-zKY"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="22"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efY-xq-4eO">
+                        <rect key="frame" x="68" y="22" width="38" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.23000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2020-09-03 14:20:45" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6da-li-AZf">
+                        <rect key="frame" x="68" y="45" width="116" height="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" white="0.60999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQL-tB-S1E">
+                        <rect key="frame" x="68" y="70" width="262" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.22" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gMT-Vs-43p">
+                        <rect key="frame" x="327" y="15" width="23" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-4" maxY="0.0"/>
+                        <state key="normal" title="0" image="icon_liuyan">
+                            <color key="titleColor" white="0.60999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9x-bb-sBZ">
+                        <rect key="frame" x="290" y="15" width="24" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-4" maxY="0.0"/>
+                        <state key="normal" title="0" image="icon_dianzan1">
+                            <color key="titleColor" white="0.60999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <state key="selected" image="icon_shoucang"/>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="2V7-t9-fJO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="2y3-np-3Cx"/>
+                    <constraint firstItem="6da-li-AZf" firstAttribute="leading" secondItem="2V7-t9-fJO" secondAttribute="trailing" constant="9" id="4Ds-wM-me0"/>
+                    <constraint firstAttribute="bottom" secondItem="rQL-tB-S1E" secondAttribute="bottom" constant="20" id="6aq-Kn-Fu3"/>
+                    <constraint firstItem="efY-xq-4eO" firstAttribute="leading" secondItem="2V7-t9-fJO" secondAttribute="trailing" constant="9" id="7II-Yz-y1c"/>
+                    <constraint firstItem="gMT-Vs-43p" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="GeH-MG-0SR"/>
+                    <constraint firstItem="t9x-bb-sBZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Kxp-pH-Kte"/>
+                    <constraint firstItem="2V7-t9-fJO" firstAttribute="top" secondItem="efY-xq-4eO" secondAttribute="top" id="OM0-a0-2EH"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="rQL-tB-S1E" secondAttribute="trailing" constant="15" id="Tnc-Py-h5P"/>
+                    <constraint firstItem="rQL-tB-S1E" firstAttribute="top" secondItem="2V7-t9-fJO" secondAttribute="bottom" constant="4" id="WxY-Jb-K6g"/>
+                    <constraint firstItem="2V7-t9-fJO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="22" id="fqD-OC-TOm"/>
+                    <constraint firstAttribute="trailing" secondItem="gMT-Vs-43p" secondAttribute="trailing" constant="15" id="m5o-zO-GEi"/>
+                    <constraint firstItem="gMT-Vs-43p" firstAttribute="leading" secondItem="t9x-bb-sBZ" secondAttribute="trailing" constant="13" id="nuR-OC-1YC"/>
+                    <constraint firstItem="rQL-tB-S1E" firstAttribute="leading" secondItem="2V7-t9-fJO" secondAttribute="trailing" constant="9" id="pgb-HX-DRY"/>
+                    <constraint firstItem="6da-li-AZf" firstAttribute="top" secondItem="efY-xq-4eO" secondAttribute="bottom" constant="5" id="vKK-5K-K6h"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="avatarImageView" destination="2V7-t9-fJO" id="QsQ-TR-Yi1"/>
+                <outlet property="commentButton" destination="gMT-Vs-43p" id="2Ia-OJ-fnG"/>
+                <outlet property="contentLabel" destination="rQL-tB-S1E" id="OOA-Os-9iI"/>
+                <outlet property="likeButton" destination="t9x-bb-sBZ" id="YMo-Jw-Wwq"/>
+                <outlet property="timeLabel" destination="6da-li-AZf" id="8dT-Ep-mMj"/>
+                <outlet property="usernameLabel" destination="efY-xq-4eO" id="GJg-ZX-9ib"/>
+            </connections>
+            <point key="canvasLocation" x="170.28985507246378" y="121.20535714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_dianzan1" width="14.5" height="13"/>
+        <image name="icon_liuyan" width="14" height="14"/>
+        <image name="icon_shoucang" width="15.5" height="14"/>
+    </resources>
+</document>
