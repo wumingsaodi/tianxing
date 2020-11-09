@@ -51,7 +51,8 @@ class CommentReplayViewControllerModel: NSObject, ViewModelType {
             return TopicApi.topicMovieRemarkDetail(remarkId: "\(self.comment.remarkId)", currPage: self.page, pageSize: self.pageSize)
                 .request(provider: self.provider)
                 .trackActivity(self.headerLoading)
-        }).subscribe(onNext: { json in
+        }).subscribe(onNext: { [weak self] json in
+            guard let self = self else { return }
             let topicMovieRemarkReply = json.topicMovieRemarkReply.object
             if let data = try? JSONSerialization.data(withJSONObject: topicMovieRemarkReply, options: .fragmentsAllowed),
                let replys = try? JSONDecoder().decode([CommentReply].self, from: data) {

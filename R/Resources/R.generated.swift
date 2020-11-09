@@ -201,7 +201,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.image` struct is generated, and contains static references to 179 images.
+  /// This `R.image` struct is generated, and contains static references to 181 images.
   struct image {
     /// Image `AGZR`.
     static let agzR = Rswift.ImageResource(bundle: R.hostingBundle, name: "AGZR")
@@ -503,6 +503,8 @@ struct R: Rswift.Validatable {
     static let mine_sureBut = Rswift.ImageResource(bundle: R.hostingBundle, name: "mine_sureBut")
     /// Image `nodata`.
     static let nodata = Rswift.ImageResource(bundle: R.hostingBundle, name: "nodata")
+    /// Image `oval`.
+    static let oval = Rswift.ImageResource(bundle: R.hostingBundle, name: "oval")
     /// Image `pay_ALIPAY`.
     static let pay_ALIPAY = Rswift.ImageResource(bundle: R.hostingBundle, name: "pay_ALIPAY")
     /// Image `pay_NETBANK`.
@@ -517,6 +519,8 @@ struct R: Rswift.Validatable {
     static let qipaai = Rswift.ImageResource(bundle: R.hostingBundle, name: "qipaai")
     /// Image `right_yuandian`.
     static let right_yuandian = Rswift.ImageResource(bundle: R.hostingBundle, name: "right_yuandian")
+    /// Image `ring`.
+    static let ring = Rswift.ImageResource(bundle: R.hostingBundle, name: "ring")
     /// Image `seach`.
     static let seach = Rswift.ImageResource(bundle: R.hostingBundle, name: "seach")
     /// Image `shanglajiazai`.
@@ -1613,6 +1617,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "oval", bundle: ..., traitCollection: ...)`
+    static func oval(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.oval, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "pay_ALIPAY", bundle: ..., traitCollection: ...)`
     static func pay_ALIPAY(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.pay_ALIPAY, compatibleWith: traitCollection)
@@ -1658,6 +1669,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "right_yuandian", bundle: ..., traitCollection: ...)`
     static func right_yuandian(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.right_yuandian, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ring", bundle: ..., traitCollection: ...)`
+    static func ring(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ring, compatibleWith: traitCollection)
     }
     #endif
 
@@ -2803,7 +2821,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "icon_sound_stop", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_sound_stop' is used in storyboard 'Movie', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_time out small", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_time out small' is used in storyboard 'Movie', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_unfull screen", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_unfull screen' is used in storyboard 'Movie', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "liulanliang", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'liulanliang' is used in storyboard 'Movie', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_watch", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_watch' is used in storyboard 'Movie', but couldn't be loaded.") }
         if UIKit.UIImage(named: "shoucang2", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'shoucang2' is used in storyboard 'Movie', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
@@ -2843,7 +2861,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "delete-2", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'delete-2' is used in storyboard 'Search', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_button_xuanzhong", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_button_xuanzhong' is used in storyboard 'Search', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_shoucang", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_shoucang' is used in storyboard 'Search', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "liulanliang", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'liulanliang' is used in storyboard 'Search', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_watch", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_watch' is used in storyboard 'Search', but couldn't be loaded.") }
         if UIKit.UIImage(named: "seach", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'seach' is used in storyboard 'Search', but couldn't be loaded.") }
         if UIKit.UIImage(named: "shoucang2", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'shoucang2' is used in storyboard 'Search', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
@@ -2890,7 +2908,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "icon_button_xuanzhong", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_button_xuanzhong' is used in storyboard 'Topic', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_shoucang", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_shoucang' is used in storyboard 'Topic', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_time out", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_time out' is used in storyboard 'Topic', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "liulanliang", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'liulanliang' is used in storyboard 'Topic', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_watch", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_watch' is used in storyboard 'Topic', but couldn't be loaded.") }
         if UIKit.UIImage(named: "logo_1", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo_1' is used in storyboard 'Topic', but couldn't be loaded.") }
         if UIKit.UIImage(named: "seach", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'seach' is used in storyboard 'Topic', but couldn't be loaded.") }
         if UIKit.UIImage(named: "shoucang2", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'shoucang2' is used in storyboard 'Topic', but couldn't be loaded.") }

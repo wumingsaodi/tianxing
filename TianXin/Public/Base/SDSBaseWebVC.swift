@@ -11,7 +11,10 @@ import UIKit
 class SDSBaseWebVC: UIViewController {
     var url:String = ""{
         didSet{
-            
+            guard let url = URL(string: self.url) else {
+                return
+            }
+         webView.load(URLRequest(url: url))
         }
     }
     var isHaveNav:Bool = true
@@ -20,11 +23,24 @@ class SDSBaseWebVC: UIViewController {
         let web  = SDSBaseWebView.createWebView(isShowPragross:self.isShowProgross)
         return web
     }()
-    convenience    init(url:String,isHaveNav:Bool = true,isShowProgross:Bool = true){
+    convenience    init(url:String,isHaveNav:Bool = true,isShowProgross:Bool = true,isNeeedLogin:Bool = false){
         self.init()
         self.url = url
         self.isHaveNav = isHaveNav
-     
+        if isNeeedLogin {
+//            LocalUserInfo.share.getLoginInfo {[weak self] (model) in
+//                if model == nil {//退出登陆了
+////                    self?.setLogin()
+//                }
+//            }
+        }
+    }
+    func setLogin(){
+        let vc = LoginVC()
+        self.view.addSubview(vc.view)
+        vc.view.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()

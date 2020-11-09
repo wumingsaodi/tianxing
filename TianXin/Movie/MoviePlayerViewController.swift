@@ -56,6 +56,7 @@ class MoviePlayerViewController: UIViewController {
     
     private func makeUI() {
         titleViewHeightConstraint.constant = KnavHeight
+        self.view.layoutIfNeeded()
         slider.setThumbImage(R.image.icon_progressBar(), for: .normal)
         slider.setThumbImage(R.image.icon_progressBar(), for: .highlighted)
     }
@@ -71,7 +72,12 @@ class MoviePlayerViewController: UIViewController {
         backButton.rx.tap
             .asObservable()
             .subscribe(onNext: {[weak self] in
-                self?.navigationController?.popViewController(animated: true)
+                if let vc = self?.navigationController?.viewControllers.first(where: {$0 is MovieListOnTopicViewController}) {
+                    self?.navigationController?.popToViewController(vc, animated: true)
+                } else {
+                    self?.navigationController?.popViewController(animated: true)
+                }
+                
             })
             .disposed(by: rx.disposeBag)
         // 点击播放按钮

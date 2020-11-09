@@ -47,8 +47,8 @@ class LoginViewModel: NSObject {
             LocalUserInfo.share.setLoginInfo(model:nil)
             LocalUserInfo.share.userId = nil
             SDSHUD.showSuccess("成功退出登录")
-            
-            kAppdelegate.islogin(isNeedLogin: true, isRootVC:true)
+            success()
+//            kAppdelegate.islogin(isNeedLogin: true, isRootVC:true)
 //            success()
         }
     }

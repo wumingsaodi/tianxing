@@ -29,11 +29,12 @@ class HomeOtherSubVC: SDSBaseVC {
         collectionv.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        requistData()
+//        requistData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        currPage = 1
+        requistData()
     }
     lazy var collectionv:SDSCollectionView = {
         let lay  = UICollectionViewFlowLayout()
@@ -87,7 +88,8 @@ extension HomeOtherSubVC : UICollectionViewDelegate,UICollectionViewDataSource,U
             return CGSize(width: 1, height: 1)
         }
         let width = (Configs.Dimensions.screenWidth - 20 - scaleX(30))/2
-        return CGSize(width: width, height: 151)
+        let height = width / 175  * 151
+        return CGSize(width: width, height: height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {

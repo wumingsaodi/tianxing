@@ -46,9 +46,9 @@ class CircleUserDetailtableVC: SDSBaseVC {
 //            self?.requistDataList()
 //
 //        })
-        tab.mj_footer = MJRefreshFooter.init(refreshingBlock: {[weak self] in
+        tab.mj_footer = MJRefreshFooter.init(refreshingBlock: {[weak self, weak tab] in
             if self!.isNoMore{
-                tab.mj_footer?.endRefreshing()
+                tab?.mj_footer?.endRefreshing()
                 return
             }
             self!.requistDataList()
@@ -75,6 +75,9 @@ extension CircleUserDetailtableVC:UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: CircleDetailCell.className()) as! CircleDetailCell
         cell.setModel(model: models[indexPath.row])
         cell.onTapAvatar = { [weak self] model in
+            if LocalUserInfo.share.userId == model.userId {
+                return
+            }
             let vc = UserDetailViewController.`init`(withUserId: "\(model.userId)")
             self?.navigationController?.pushViewController(vc, isNeedLogin: true, animated: true)
         }

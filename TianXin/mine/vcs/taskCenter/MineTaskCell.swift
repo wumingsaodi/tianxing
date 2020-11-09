@@ -31,12 +31,12 @@ class MineTaskCell: UITableViewCell {
         titleLab.text = model.task_title
         detailLab.text = model.task_content
         doneBut.backgroundColor = .Hex("#FFF95E46")
-        if model.task_title.contains("充值") {
+        if model.task_title.contains("充值") || model.task_title.contains("首充") {
             doneBut.setTitle("去充", for: .normal)
         } else  if model.task_title.contains("推广") {
             doneBut.setTitle("去推", for: .normal)
         }else{
-            doneBut.setTitle("去完成", for: .normal)
+            doneBut.setTitle("去充", for: .normal)
         }
         doneBut.isSelected = model.is_finsh
         if doneBut.isSelected {

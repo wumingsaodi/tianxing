@@ -7,8 +7,11 @@
 //
 
 import UIKit
-
+import RxSwift
+import RxCocoa
 class HomeDetialTopView: UIView {
+    
+    var model:HomedetailModel =  HomedetailModel()
     static let headerH:CGFloat = 130
     let leftRightMargin:CGFloat = 10
     var labtitles:[String]?{
@@ -16,12 +19,27 @@ class HomeDetialTopView: UIView {
             createLab()
         }
     }
+    lazy var vm:HomeDetialTopViewModel = {
+        return  HomeDetialTopViewModel()
+    }()
     init(titles:[String]) {
         super.init(frame: .zero)
          self.labtitles = titles
         createLab()
         setUI()
-       
+        
+        let tap = loveBut.rx.tap
+            .map({[weak self] _ in self?.model})
+            .filterNil()
+            .asObservable()
+            
+        let input = HomeDetialTopViewModel.Input(
+            loveobservale: tap,
+            collectObservale: collectionBut.rx.tap.map({[weak self]_ in return self?.model}).filterNil().asObservable()
+        )
+        let  output = vm.transform(input: input)
+        output.loveSelected.map({$0.isMovLike}).drive(loveBut.rx.isSelected).disposed(by: rx.disposeBag)
+        output.collectSelected.map({$0.ilike}).drive(collectionBut.rx.isSelected).disposed(by: rx.disposeBag)
     }
     func setUI(){
         //
@@ -35,12 +53,7 @@ class HomeDetialTopView: UIView {
 //        }
         //
         self.addSubview(textLabel)
-        textLabel.snp.makeConstraints { (make) in
-//            make.top.equalTo(firstAdImgv.snp.bottom).offset(10)
-            make.top.equalToSuperview().offset(10)
-            make.left.equalToSuperview().offset(leftRightMargin)
-            make.right.equalToSuperview().offset(-leftRightMargin)
-        }
+      
         //
         self.addSubview(timeL)
         timeL.snp.makeConstraints { (make) in
@@ -75,6 +88,24 @@ class HomeDetialTopView: UIView {
 //            make.top.equalTo(titlesBG.snp.bottom).offset(5)
 //            make.height.equalTo(200)
 //        }
+        self.addSubview(collectionBut)
+        collectionBut.snp.makeConstraints { (make) in
+            make.right.equalToSuperview().offset(-15)
+            make.top.equalToSuperview().offset(15)
+            make.size.equalTo(CGSize(width: 20, height: 20))
+        }
+        self.addSubview(loveBut)
+        loveBut.snp.makeConstraints { (make) in
+            make.top.equalTo(collectionBut)
+            make.right.equalTo(collectionBut.snp.left).offset(-10)
+            make.size.equalTo(collectionBut)
+        }
+        textLabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(firstAdImgv.snp.bottom).offset(10)
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(leftRightMargin)
+            make.right.equalTo(loveBut.snp.left).offset(-leftRightMargin)
+        }
     }
     func  createLab(){
         for view in titlesBG.subviews {
@@ -131,7 +162,23 @@ class HomeDetialTopView: UIView {
         let lab = UILabel.createLabWith(title: "2020-00-00  00:00:00/32.4万次播放", titleColor: .Hex("#FF9E9E9E"), font: .pingfangSC(13))
         return lab
     }()
-    func  setHeadModel(model:HomeMovieItem){
+    lazy var loveBut:UIButton = {
+        let but = UIButton()
+        but.setImage(#imageLiteral(resourceName: "icon_dianzan1"), for: .normal)
+        but.setImage(#imageLiteral(resourceName: "icon_shoucang"), for: .selected)
+        return but
+    }()
+    lazy var collectionBut:UIButton = {
+        let but = UIButton()
+        but.setImage(#imageLiteral(resourceName: "icon_shoucang1"), for: .normal)
+        but.setImage(#imageLiteral(resourceName: "icon_shoucang2"), for: .selected)
+        return but
+    }()
+    func  setHeadModel(model:HomedetailModel){
+        self.model = model
+        let model = model.movie
+        loveBut.isSelected = self.model.isMovLike
+        collectionBut.isSelected = self.model.ilike
         self.labtitles = model.keywords
         let  historyStr = model.historyNum > 10000 ? String(format: "%0.1f万次播放", Float(model.historyNum) / 10000 )  : "\(model.historyNum)次播放"
         self.timeL.text = model.time + "/" + historyStr

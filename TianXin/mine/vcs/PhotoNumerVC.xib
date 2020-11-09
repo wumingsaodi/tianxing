@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -61,7 +61,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Heo-Mm-CMn">
-                            <rect key="frame" x="284" y="156" width="77" height="30"/>
+                            <rect key="frame" x="307" y="156" width="77" height="30"/>
                             <state key="normal" title="获取验证码">
                                 <color key="titleColor" red="0.98823529409999999" green="0.70980392160000005" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             </state>
@@ -120,8 +120,8 @@
                         <constraint firstAttribute="trailing" secondItem="AdV-so-NvL" secondAttribute="trailing" constant="26" id="X8R-5s-AnB"/>
                         <constraint firstItem="AIT-1h-2Tm" firstAttribute="leading" secondItem="gyL-lP-exw" secondAttribute="leading" constant="26" id="Zck-yc-qL9"/>
                         <constraint firstItem="nO1-OS-ndO" firstAttribute="top" secondItem="ynV-ND-BfJ" secondAttribute="bottom" constant="15" id="f3K-fP-o1P"/>
-                        <constraint firstItem="Heo-Mm-CMn" firstAttribute="leading" secondItem="nO1-OS-ndO" secondAttribute="trailing" constant="15" id="hfn-R0-Mie"/>
                         <constraint firstItem="dOv-zr-aKk" firstAttribute="top" secondItem="3qn-Ox-UcO" secondAttribute="bottom" constant="11" id="pXf-VN-7cx"/>
+                        <constraint firstAttribute="trailing" secondItem="Heo-Mm-CMn" secondAttribute="trailing" constant="30" id="tk1-EK-Qj8"/>
                         <constraint firstAttribute="height" constant="235" id="uvp-Od-Us0"/>
                         <constraint firstAttribute="trailing" secondItem="AIT-1h-2Tm" secondAttribute="trailing" constant="26" id="vQh-22-ssC"/>
                     </constraints>

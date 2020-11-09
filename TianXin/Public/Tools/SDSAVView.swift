@@ -26,7 +26,7 @@ class SDSAVView: UIView {
         }
     }
     ///是不是允许已进入就播放
-    var isCanBeiginPlay:Bool = true
+    var isCanBeiginPlay:Bool = false
     var fullParentView:UIView? = UIApplication.shared.keyWindow
     
     ///是不是可以隐藏tools
@@ -52,51 +52,51 @@ class SDSAVView: UIView {
     private let  toolH:CGFloat = 40
     private func reStart() {
         slider.value = 0
-        playLab.snp.remakeConstraints { (make) in
-            make.left.centerY.equalToSuperview()
-            make.width.equalTo(0.1)
-            make.height.equalTo(sliderH)
-        }
-        bufferTimeLabel.snp.remakeConstraints { (make) in
-            make.left.centerY.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.001)
-            make.height.equalTo(sliderH)
-        }
+//        playLab.snp.remakeConstraints { (make) in
+//            make.left.centerY.equalToSuperview()
+//            make.width.equalTo(0.1)
+//            make.height.equalTo(sliderH)
+//        }
+//        bufferTimeLabel.snp.remakeConstraints { (make) in
+//            make.left.centerY.equalToSuperview()
+//            make.width.equalToSuperview().multipliedBy(0.001)
+//            make.height.equalTo(sliderH)
+//        }
         playTimeLabl.text = "00:00"
         totalTimeLab.text = "00:00"
     }
     //
-    lazy  var bufferTimeLabel : UIView = {
-        let lab = UIView()
-        lab.backgroundColor = .red
-        return lab
-    }()
-    lazy  var playLab : UIView = {
-        let lab = UIView()
-        lab.backgroundColor = .yellow
-        return lab
-    }()
+//    lazy  var bufferTimeLabel : UIView = {
+//        let lab = UIView()
+//        lab.backgroundColor = .red
+//        return lab
+//    }()
+//    lazy  var playLab : UIView = {
+//        let lab = UIView()
+//        lab.backgroundColor = .yellow
+//        return lab
+//    }()
     var sliderH:CGFloat = 3
     lazy var slider:UISlider = {
         let slider = UISlider()
         let crect =   slider.trackRect(forBounds: .zero)
         slider.layoutIfNeeded()
         sliderH = crect.size.height
-        slider.addSubview(bufferTimeLabel)
-        bufferTimeLabel.snp.makeConstraints { (make) in
-            make.left.centerY.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.001)
-            make.height.equalTo(crect.size.height)
-        }
-        slider.addSubview(playLab)
-        playLab.snp.makeConstraints { (make) in
-            make.left.centerY.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.001)
-            make.height.equalTo(crect.size.height)
-        }
+//        slider.addSubview(bufferTimeLabel)
+//        bufferTimeLabel.snp.makeConstraints { (make) in
+//            make.left.centerY.equalToSuperview()
+//            make.width.equalToSuperview().multipliedBy(0.001)
+//            make.height.equalTo(crect.size.height)
+//        }
+//        slider.addSubview(playLab)
+//        playLab.snp.makeConstraints { (make) in
+//            make.left.centerY.equalToSuperview()
+//            make.width.equalToSuperview().multipliedBy(0.001)
+//            make.height.equalTo(crect.size.height)
+//        }
         slider.addTarget(self, action:#selector(sliderValueDidChange(sender:)) , for: .valueChanged)
         slider.setThumbImage(UIImage(named: "icon_progress bar"), for: .normal)
-        slider.tintColor = .clear
+//        slider.tintColor = .clear
         return slider
     }()
     lazy var playTimeLabl:UILabel = {
@@ -198,7 +198,7 @@ class SDSAVView: UIView {
     func setPlayerConfig() -> Bool {
         
         if url == nil {
-            SDSHUD.showError("url不合法或者为空")
+//            SDSHUD.showError("url不合法或者为空")
             return false
         }
         coverImgView.removeFromSuperview()
@@ -241,11 +241,11 @@ class SDSAVView: UIView {
             }
         
             self?.slider.value = Float(playTime/totalTiem)
-            self?.playLab.snp.remakeConstraints { (make) in
-                make.left.centerY.equalToSuperview()
-                make.width.equalToSuperview().multipliedBy(Float(playTime/totalTiem))
-                make.height.equalTo(self!.sliderH)
-            }
+//            self?.playLab.snp.remakeConstraints { (make) in
+//                make.left.centerY.equalToSuperview()
+//                make.width.equalToSuperview().multipliedBy(Float(playTime/totalTiem))
+//                make.height.equalTo(self!.sliderH)
+//            }
             self?.playTimeLabl.text = Date.stringFromSeconds(secondes: Int(playTime))
             self?.totalTimeLab.text = Date.stringFromSeconds(secondes: Int(totalTiem))
         }
@@ -328,8 +328,12 @@ class SDSAVView: UIView {
             make.right.equalTo(totalTimeLab.snp.left).offset(-margin)
         }
         self.perform(block: {[weak self] in
-            if self!.isCanBeiginPlay{
-                self!.play()
+            guard let self = self else { return }
+//            if ((self?.isCanBeiginPlay) != nil){
+//                self?.play()
+//            }
+            if self.isCanBeiginPlay {
+                self.play()
             }
         }, timel: 0.5)
     }
@@ -359,6 +363,10 @@ class SDSAVView: UIView {
 //MARK: -action
 extension SDSAVView{
     func play(){//播放
+        if url == nil {
+            SDSHUD.showError("url不合法或者为空")
+            return
+        }
         if !isSetPlayerConfig {
             if  !setPlayerConfig() {
                 return
@@ -398,11 +406,11 @@ extension SDSAVView{
             if time.isNaN {
                 return
             }
-            self.playLab.snp.remakeConstraints { (make) in
-                make.left.centerY.equalToSuperview()
-                make.width.equalToSuperview().multipliedBy(sender.value)
-                make.height.equalTo(sliderH)
-            }
+//            self.playLab.snp.remakeConstraints { (make) in
+//                make.left.centerY.equalToSuperview()
+//                make.width.equalToSuperview().multipliedBy(sender.value)
+//                make.height.equalTo(sliderH)
+//            }
             let seekTime = CMTimeMake(value: Int64(time), timescale: 1)
             player.seek(to: seekTime)
         }
@@ -492,16 +500,18 @@ extension SDSAVView {
             if totalBuffer.isNaN || total.isNaN {
                 return
             }
-            if bufferTimeLabel == nil || slider == nil {
+            if  slider == nil {
                 return
             }
-         
-            bufferTimeLabel.snp.remakeConstraints { (make) in
-
-                    make.left.centerY.equalToSuperview()
-                    make.width.equalToSuperview().multipliedBy(totalBuffer / total)
-                    make.height.equalTo(sliderH)
-            }
+//            if  bufferTimeLabel == nil {
+//                return
+//            }
+//            bufferTimeLabel.snp.remakeConstraints { (make) in
+//
+//                    make.left.centerY.equalToSuperview()
+//                    make.width.equalToSuperview().multipliedBy(totalBuffer / total)
+//                    make.height.equalTo(sliderH)
+//            }
             //            bufferTimeLabel.snp.updateConstraints{ (make) in
             //                make.width.equalToSuperview().multipliedBy(totalBuffer / total)
             //            }
@@ -532,6 +542,7 @@ extension SDSAVView {
             updateConstraintsIfNeeded()
             self.orginFrame = self.frame
         }
+//        NotificationCenter.default.post(UIApplication.didChangeStatusBarOrientationNotification)
         kAppdelegate.blockRotation = .landscapeRight
         self.fullParentView?.addSubview(self)
         self.fullParentView?.bringSubviewToFront(self)
@@ -541,7 +552,14 @@ extension SDSAVView {
 
     }
     fileprivate func exitFullScreen() {
-        kAppdelegate.blockRotation = .portrait
+        let orientation = UIApplication.shared.statusBarOrientation
+        switch orientation {
+        case .landscapeLeft, .landscapeRight:
+            kAppdelegate.blockRotation = .portrait
+        default:
+            kAppdelegate.blockRotation = .portraitUpsideDown
+        }
+//        kAppdelegate.blockRotation = .portrait
         self.originParentView!.addSubview(self)
         self.snp.remakeConstraints { (make) in
             make.left.equalToSuperview().offset(orginFrame!.origin.x)

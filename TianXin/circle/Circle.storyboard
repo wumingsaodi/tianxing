@@ -989,7 +989,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FkV-hp-wMf">
-                                        <rect key="frame" x="15" y="17.5" width="384" height="35"/>
+                                        <rect key="frame" x="15" y="17.5" width="313" height="35"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我来说两句~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQG-I0-qg0">
                                                 <rect key="frame" x="20" y="8.5" width="86" height="18"/>
@@ -998,7 +998,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="s0c-hr-41V">
-                                                <rect key="frame" x="15" y="4" width="354" height="31"/>
+                                                <rect key="frame" x="15" y="4" width="283" height="31"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="0.22" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1021,13 +1021,30 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73f-m3-wzI">
+                                        <rect key="frame" x="336" y="19" width="70" height="32"/>
+                                        <color key="backgroundColor" red="0.9882352941176471" green="0.74117647058823533" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="4eJ-u5-Za9"/>
+                                            <constraint firstAttribute="width" constant="70" id="DS8-jv-HIi"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="发送"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="FkV-hp-wMf" firstAttribute="leading" secondItem="eKI-hD-dPA" secondAttribute="leading" constant="15" id="3bY-gw-9Fx"/>
-                                    <constraint firstAttribute="trailing" secondItem="FkV-hp-wMf" secondAttribute="trailing" constant="15" id="69I-Bv-W27"/>
                                     <constraint firstItem="FkV-hp-wMf" firstAttribute="centerY" secondItem="eKI-hD-dPA" secondAttribute="centerY" id="Duv-GW-Hm4"/>
+                                    <constraint firstItem="73f-m3-wzI" firstAttribute="centerY" secondItem="FkV-hp-wMf" secondAttribute="centerY" id="HyD-Lh-b12"/>
+                                    <constraint firstAttribute="trailing" secondItem="73f-m3-wzI" secondAttribute="trailing" constant="8" id="KUM-4n-us7"/>
                                     <constraint firstAttribute="height" constant="70" id="iC2-Il-6eM"/>
+                                    <constraint firstItem="73f-m3-wzI" firstAttribute="leading" secondItem="FkV-hp-wMf" secondAttribute="trailing" constant="8" id="lhu-6l-K7B"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1055,6 +1072,7 @@
                     </view>
                     <connections>
                         <outlet property="placeholderLabel" destination="sQG-I0-qg0" id="sZb-tU-oS2"/>
+                        <outlet property="sendButton" destination="73f-m3-wzI" id="zPG-my-rK6"/>
                         <outlet property="textHeightConstraint" destination="eoP-Tn-AHj" id="eg5-fH-3dA"/>
                         <outlet property="textView" destination="s0c-hr-41V" id="CYp-0t-dxv"/>
                     </connections>

@@ -164,6 +164,9 @@ extension CircleRecomedTableVC:UITableViewDelegate,UITableViewDataSource {
         cell.setModel(model: models[indexPath.row])
         cell.onTapAvatar = { [weak self] _ in
             guard let self = self else { return }
+            if LocalUserInfo.share.userId == self.models[indexPath.row].userId {
+                return
+            }
             let vc = UserDetailViewController.`init`(withUserId: "\(self.models[indexPath.row].userId)")
             self.navigationController?.pushViewController(vc, isNeedLogin: true, animated: true)
         }

@@ -31,6 +31,12 @@ class CircleHomeSearchVC: SDSBaseVC {
     lazy var tableView:SDSTableView = {
         let tableView = SDSTableView()
         tableView.addSubview(tableView.noDataView)
+        tableView.noDataView.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+        tableView.tableFooterView = UIView()
+       
+//        tableView.addSubview(tableView.noDataView)
 //        tableView.dataSource = self
 //        tableView.delegate = self
 //        tableView.registerClass(type: CircleHomeSearchTableCell.self)

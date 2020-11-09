@@ -29,16 +29,7 @@ class MainTabBarVC: UITabBarController {
         }
 
         super.viewDidLoad()
-        NetWorkingHelper.normalPost(url: "/gl/user/getAppHome", params: [:]) { [weak self](dict) in
-            guard let url = dict["data"] as? String else{
-                return
-            }
-            LocalUserInfo.share.getLoginInfo { (model) in
-                
-            }
-            let gameUrl  = url + "?token=" + (LocalUserInfo.share.sessionId  ?? "")
-            self?.gameVc?.url = gameUrl
-        }
+   
             }
     func addSubVCS(){
         let homeVC = HomeVC()
@@ -46,7 +37,7 @@ class MainTabBarVC: UITabBarController {
         let guangchangvc = CircleHomeVC()
              setUPChildVC(title: "广场", img:"tab_guangchang" , selectedImg: "tab_guangchang_selected", child: guangchangvc)
      
-        let webVc = SDSBaseWebVC.init(url: "")
+        let webVc = SDSBaseWebVC.init(url: "",isNeeedLogin: true)
         gameVc = webVc
          setUPChildVC(title: "游戏", img: "kok", selectedImg: "kok", child: webVc,TopPadding: 10)
 //            kAppdelegate.getNavvc()?.pushViewController(webVc, animated: true)
@@ -81,13 +72,39 @@ class MainTabBarVC: UITabBarController {
         UIDebug.shared.enable()
         #endif
     }
+    func getHomeGameUrl(){
+        NetWorkingHelper.normalPost(url: "/gl/user/getAppHome", params: [:]) { [weak self](dict) in
+            guard let url = dict["data"] as? String else{
+                return
+            }
+            LocalUserInfo.share.getLoginInfo { (model) in
+                
+            }
+            let gameUrl  = url + "?token=" + (LocalUserInfo.share.sessionId  ?? "")
+            self?.gameVc?.url = gameUrl
+        }
+    }
 }
 
 extension MainTabBarVC: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if (viewController as? UINavigationController)?.viewControllers[0] is GameVC {
-            presentKOK()
-            return false
+        if (viewController as? UINavigationController)?.viewControllers[0] == gameVc {
+            if !LocalUserInfo.share.islogin {
+               let vc =   LoginVC.init()
+                vc.isNotNeedNav = true
+                vc.successBlock = { [weak vc,weak self] in
+                    vc?.view.removeFromSuperview()
+                    vc?.removeFromParent()
+                    self?.getHomeGameUrl()
+                }
+                gameVc?.addChild(vc)
+                gameVc?.view.addSubview(vc.view)
+                vc.view.snp.makeConstraints { (make) in
+                    make.edges.equalToSuperview()
+                }
+            }else{
+              getHomeGameUrl()
+            }
         }
         return true
     }

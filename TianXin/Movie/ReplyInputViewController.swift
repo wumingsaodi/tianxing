@@ -13,10 +13,11 @@ import RxCocoa
 class ReplyInputViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var placeholderLabel: UILabel!
+    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var textHeightConstraint: NSLayoutConstraint!
     
     static let maxTextHeight = 60 as CGFloat
     static let minTextHeight = 35 as CGFloat
-    @IBOutlet weak var textHeightConstraint: NSLayoutConstraint!
     
     let replyEvent = PublishSubject<String>()
     
@@ -40,11 +41,12 @@ class ReplyInputViewController: UIViewController {
             .bind(to: textHeightConstraint.rx.constant)
             .disposed(by: rx.disposeBag)
         // 发送评论
-        textView.rx.didEndEditing.asObservable()
+        sendButton.rx.tap.asObservable()
             .subscribe(onNext: {[weak self] in
                 if let text = self?.textView.text, !text.isEmpty {
                     self?.textView.text = ""
                     self?.replyEvent.onNext(text)
+                    self?.textView.resignFirstResponder()
                 }
             })
             .disposed(by: rx.disposeBag)

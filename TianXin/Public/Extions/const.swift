@@ -124,8 +124,11 @@ extension NSObject {
         }
     }
     func perform(block:@escaping ()->Void,timel:TimeInterval){
-        self.sdsPerformBlock = block
-        self.perform(#selector(sdsPerformAction), with: nil, afterDelay: timel)
+//        self.sdsPerformBlock = block
+        Timer.scheduledTimer(withTimeInterval: timel, repeats: false) { (_) in
+            block()
+        }
+//        self.perform(#selector(sdsPerformAction), with: nil, afterDelay: timel)
     }
   @objc func sdsPerformAction(){
         self.sdsPerformBlock()

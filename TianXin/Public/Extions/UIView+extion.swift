@@ -254,8 +254,12 @@ extension UIButton {
 //    }
 
     @objc func sdslayout() {
+        self.setNeedsUpdateConstraints()
+        self.updateConstraintsIfNeeded()
           self.setNeedsLayout()
           self.layoutIfNeeded()
+      
+        
         if self.butType != nil {
             let labWidth:CGFloat = (self.titleLabel?.bounds.size.width)!
             let labHeight:CGFloat = (self.titleLabel?.bounds.size.height)!
@@ -265,7 +269,17 @@ extension UIButton {
             switch self.butType {
             case .imgTop:
                 
-                self.imageEdgeInsets = UIEdgeInsets(top: -labHeight*0.5 - padding*0.5, left: (sdsW - imgWidth) * 0.5, bottom: labHeight*0.5 + padding*0.5, right: -(sdsW - imgWidth) * 0.5)
+//                self.imageEdgeInsets = UIEdgeInsets(top: -labHeight*0.5 - padding*0.5, left: (sdsW - imgWidth) * 0.5, bottom: labHeight*0.5 + padding*0.5, right: -(sdsW - imgWidth) * 0.5)
+               
+                if #available(iOS 13.0, *) {
+                    self.imageEdgeInsets = UIEdgeInsets(top: -labHeight*0.5 - padding*0.5, left: (sdsW - imgWidth) * 0.5, bottom: labHeight*0.5 + padding*0.5, right: -(sdsW - imgWidth) * 0.5)
+                } else {
+//                    self.imageView?.frame.origin = CGPoint(x: (self.sdsW - imgWidth)*0.5, y:  imageView?.frame.origin.y ?? 0)
+                    let lettRightMargin = (self.sdsW - imgWidth - (imageView?.sdsX ?? 0))/2
+                    self.imageEdgeInsets = UIEdgeInsets(top: -labHeight*0.5 - padding*0.5, left: lettRightMargin, bottom: labHeight*0.5 + padding*0.5, right: -lettRightMargin)
+                }
+//                self.imageEdgeInsets = UIEdgeInsets(top: -labHeight*0.5 - padding*0.5, left: 0 , bottom: labHeight*0.5 + padding*0.5, right: 0)
+              
                 self.titleEdgeInsets = UIEdgeInsets(top: imgHeight*0.5 + padding*0.5, left: -imgWidth, bottom: -imgHeight*0.5 - padding*0.5, right: (sdsW - labWidth))
                 break
             case .imgRight:
@@ -288,12 +302,25 @@ class  SDSPaddingLabal: UILabel {
 
     var padding:UIEdgeInsets = .zero
     override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
+        if padding == .zero {
+            return super.textRect(forBounds: bounds, limitedToNumberOfLines: numberOfLines)
+        }
         let rect = super.textRect(forBounds: bounds, limitedToNumberOfLines: numberOfLines)
-        let  newrect = CGRect(origin: rect.origin, size: CGSize(width: rect.width + padding.left + padding .right, height: rect.height + padding.top + padding.bottom))
+        let  newrect = CGRect(origin: CGPoint(x: rect.origin.x + padding.left, y: rect.origin.y + padding.top) , size: CGSize(width: rect.width + padding.left + padding .right, height: rect.height + padding.top + padding.bottom))
       return newrect
     }
     override func draw(_ rect: CGRect) {
-        super.drawText(in: rect.inset(by: self.padding))
+          if padding == .zero {
+            return super.draw(rect)
+        }
+        if #available(iOS 13.0, *) {
+            super.drawText(in:rect.inset(by: padding))
+        }else{
+            let myrect = CGRect(origin: CGPoint(x: 0, y: rect.origin.y), size: rect.size)
+            let  newRect =  myrect.inset(by: padding) //myrect.inset(by: UIEdgeInsets(top: 0, left:
+            super.drawText(in:newRect)
+        }
+     
     }
 }
 extension UILabel {

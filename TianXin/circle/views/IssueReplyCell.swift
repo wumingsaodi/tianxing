@@ -29,6 +29,7 @@ class IssueReplyCell: CommentCell {
             .drive(likeButton.rx.title()).disposed(by: cellDisposeBag)
         model.replyNum.map{"\($0)"}.asDriver(onErrorJustReturn: "0")
             .drive(commentButton.rx.title()).disposed(by: cellDisposeBag)
+        model.isLiked.bind(to: likeButton.rx.isSelected).disposed(by: cellDisposeBag)
         
         avatarImageView.rx.tapGesture()
             .when(.ended)
@@ -36,8 +37,9 @@ class IssueReplyCell: CommentCell {
             .map{_ in "\(model.issueReply.userId ?? 0)"}
             .bind(to: model.tapAvatar)
             .disposed(by: cellDisposeBag)
+        
         likeButton.rx.tap
-            .map({[weak self] in ("\(model.issueReply.replyId ?? 0)", !(self?.likeButton.isSelected ?? false))})
+            .map({[weak self] in ("\(model.issueReply.id)", !(self?.likeButton.isSelected ?? false))})
             .bind(to: model.onLike)
             .disposed(by: cellDisposeBag)
     }

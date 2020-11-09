@@ -14,14 +14,18 @@ import RxCocoa
 class HomeVC: UIViewController {
     let maxOffsetY:CGFloat = 170
     let leftRightMargin:CGFloat = 10
+    var index_banner : [BannerItemModel] = []
     var childVcs:[UIViewController] =  [UIViewController]()
     var isLeavehomeVC :Bool = false{
         didSet{
             LocalUserBalance.share.getUserBalance {[weak self] (balace) in
                 if balace.balance < 50 {
+//                    _ =   HomeMoneyPopView.ShowSDSCover(istap: false)
+//                    return 
+                    
                     if  Date().timeIntervalSince1970  -  UserDefaults.standard.double(forKey: NoHomeMoenyPopShow) > 3600*24{
                         if !(self?.isLeavehomeVC ?? true ){//只在首页显示
-                         _ =   HomeMoneyPopView.ShowSDSCover()
+                         _ =   HomeMoneyPopView.ShowSDSCover(istap: false)
                         }
                         
                     }
@@ -42,7 +46,7 @@ class HomeVC: UIViewController {
     }()
     lazy var titleView:SDSScrollTitlesView = {
         let titles =  ["推荐"]   // ["关注","推荐","游戏","国产","中文无码"]
-        let width:CGFloat =  100  //(Configs.Dimensions.screenWidth - 40) / CGFloat(titles.count)
+        let width:CGFloat =  83  //(Configs.Dimensions.screenWidth - 40) / CGFloat(titles.count)
         let view = SDSScrollTitlesView(ttles: titles, width: width) {[weak self] (index, cell) in
             self?.vcsCollectionv.scollToIndex(index: index)
         }
@@ -55,7 +59,9 @@ class HomeVC: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.extendedLayoutIncludesOpaqueBars = true
         self.isLeavehomeVC = false
+        self.extendedLayoutIncludesOpaqueBars = true
         self.navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = .white
         NotificationCenter.default.rx.notification(.HomeMenuOnTap)
@@ -74,36 +80,7 @@ class HomeVC: UIViewController {
             .disposed(by: rx.disposeBag)
         
         setUI()
-        homevm.RequistHomeIndex {[weak self] in
-            guard  let model =  self?.homevm.homeModel else{
-                return
-            }
-            var  titles:[String] = ["推荐"]
-            titles.append(contentsOf: model.type.map({ (iteem) -> String in
-                return iteem.type
-            }))
-            self?.titleView.titles = titles
-//            self?.FirstScroll()
-            var vcs:[UIViewController] = [UIViewController]()
-            for i in 0..<titles.count{
-                if i == 0 {
-                  let recomemnt =  HomeRecomentVC()
-                    self?.setScroll(vc: recomemnt)
-                    recomemnt.homeparenvc = self
-                    recomemnt.indexModel = model
-                    vcs.append(recomemnt)
-                }else{
-                    let othervc = HomeOtherSubVC()
-                    self?.setScroll(vc: othervc)
-                    othervc.homeparenvc = self
-                    othervc.type = model.type[i - 1]
-                    vcs.append(othervc)
-                }
-            }
-            self?.childVcs = vcs
-            self?.vcsCollectionv.VCs = vcs
-            self?.topView.menus = model.type
-        }
+
         self.perform(#selector(FirstScroll), with: nil, afterDelay: 0.25)
     }
     
@@ -126,12 +103,14 @@ class HomeVC: UIViewController {
         //
         self.view .addSubview(bgScollv)
         bgScollv.snp.makeConstraints { (make) in
-            make.left.right.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-kbottomtoolBar - 5)
             make.top.equalTo(titleView.snp.bottom)
         }
         bgScollv.contentLayoutGuide.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
-            make.bottom.equalToSuperview().offset(170)
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview()    //equalTo  (titleView.snp.bottom)
+            make.bottom.equalToSuperview().offset(maxOffsetY)
         }
         bgScollv.addSubview(bannerView)
         bannerView.snp.makeConstraints { (make) in
@@ -161,13 +140,26 @@ class HomeVC: UIViewController {
      */
         lazy var bannerView:XRCarouselView = {
             let  bannar = SDSBanar().createBarnarView()
-            LocalUserInfo.share.getBanar { [weak self](model) in
+            let currimg = UIImage(named: "oval")
+            let  normalimg = UIImage(named: "ring")
+//            bannar.setPageImage(normalimg, andCurrentPageImage: currimg)
+            LocalUserInfo.share.getBanar { [weak self , weak bannar](model) in
+                guard let  bannar = bannar else{
+                    return
+                }
+                self?.index_banner  = model.index_banner
                 let titles = model.index_banner.map { (bannar) -> String in
-                    return bannar.adUrl
+                    return bannar.coverUrl
                 }
                 bannar.imageArray = titles
             }
-            bannar.backgroundColor = .yellow
+            bannar.imageClickBlock = {[weak self] index in
+                guard let self = self else{
+                    return
+                }
+                let webvc = SDSBaseWebVC.init(url: self.index_banner[index].adUrl)
+                self.navigationController?.pushViewController(webvc, animated: true)
+            }
             return bannar
         }()
     lazy var vcsCollectionv:SDSScrollColltionView = {
@@ -184,7 +176,7 @@ class HomeVC: UIViewController {
         isLeavehomeVC = false
         self.navigationController?.navigationBar.isHidden = true
         navigationItem.backButtonTitle = ""
-        
+        requistData()
     }
     @objc  func  FirstScroll(){
         self.titleView.scollToIndex(index: 0)
@@ -195,7 +187,6 @@ class HomeVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
 //        self.hidesBottomBarWhenPushed = true
     }
-    
 
 }
 
@@ -243,5 +234,43 @@ return  false
             }
         }
 
+    }
+    
+    
+}
+
+
+extension HomeVC{
+    func  requistData() {
+        homevm.RequistHomeIndex {[weak self] in
+            guard  let model =  self?.homevm.homeModel else{
+                return
+            }
+            var  titles:[String] = ["推荐"]
+            titles.append(contentsOf: model.type.map({ (iteem) -> String in
+                return iteem.type
+            }))
+            self?.titleView.titles = titles
+//            self?.FirstScroll()
+            var vcs:[UIViewController] = [UIViewController]()
+            for i in 0..<titles.count{
+                if i == 0 {
+                  let recomemnt =  HomeRecomentVC()
+                    self?.setScroll(vc: recomemnt)
+                    recomemnt.homeparenvc = self
+                    recomemnt.indexModel = model
+                    vcs.append(recomemnt)
+                }else{
+                    let othervc = HomeOtherSubVC()
+                    self?.setScroll(vc: othervc)
+                    othervc.homeparenvc = self
+                    othervc.type = model.type[i - 1]
+                    vcs.append(othervc)
+                }
+            }
+            self?.childVcs = vcs
+            self?.vcsCollectionv.VCs = vcs
+            self?.topView.menus = model.type
+        }
     }
 }

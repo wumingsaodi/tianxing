@@ -24,6 +24,7 @@ class MovieInfoHeaderViewController: UIViewController {
     
     let movie = BehaviorRelay<TopicMovie?>(value: nil)
 //    let items = BehaviorRelay<[String]>(value: [])
+    let height = BehaviorRelay<CGFloat>(value: 0)
     
     let likeMovie = PublishSubject<Void>()
     let favoriteMovie = PublishSubject<Void>()
@@ -38,6 +39,7 @@ class MovieInfoHeaderViewController: UIViewController {
             .drive(countLabel.rx.text).disposed(by: rx.disposeBag)
  
         likeButton.rx.tap
+            .debounce(DispatchTimeInterval.milliseconds(250), scheduler: MainScheduler.instance)
             .bind(to: likeMovie)
             .disposed(by: rx.disposeBag)
         
@@ -56,7 +58,14 @@ class MovieInfoHeaderViewController: UIViewController {
             .disposed(by: rx.disposeBag)
     }
     
-    func bind(_ isLike: Driver<Bool>, isFavorited: Driver<Bool>, keywords: Driver<[String]>) {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        flowLayout.invalidateLayout()
+    }
+    
+    func bind(_ isLike: Driver<Bool>, isFavorited: Driver<Bool>, keywords: Driver<[String]>, likeCount: Driver<Int>) {
+        likeCount.map({$0.toString()}).asDriver(onErrorJustReturn: nil)
+            .drive(countLabel.rx.text).disposed(by: rx.disposeBag)
         isFavorited.drive(favoriteButton.rx.isSelected).disposed(by: rx.disposeBag)
         isLike.drive(likeButton.rx.isSelected).disposed(by: rx.disposeBag)
         keywords.asDriver()
@@ -66,5 +75,17 @@ class MovieInfoHeaderViewController: UIViewController {
             }
             .disposed(by: rx.disposeBag)
     }
+//    func bind(_ movie: Driver<MovieDetail>) {
+//        movie.map {$0.topicWatchMovieList?.first?.videoLikeCount ?? 0}.map{$0.toString()}
+//            .drive(countLabel.rx.text).disposed(by: rx.disposeBag)
+//        movie.map { $0.isLike == 1}.drive(likeButton.rx.isSelected).disposed(by: rx.disposeBag)
+//        movie.map { $0.loginIsCollect == 1}.drive(favoriteButton.rx.isSelected).disposed(by: rx.disposeBag)
+//        movie.map {$0.topicWatchMovieList?.first?.keywords ?? []}.asDriver()
+//            .drive(collectionView.rx.items(cellIdentifier: "\(TagCell.self)", cellType: TagCell.self)){
+//                index, viewModel, cell in
+//                cell.bind(text: viewModel)
+//            }
+//            .disposed(by: rx.disposeBag)
+//    }
 }
 

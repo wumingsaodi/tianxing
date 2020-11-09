@@ -19,7 +19,6 @@ class TopicListCell: RxTableViewCell<TopicViewCellViewModel> {
     
     override func bind(_ model: TopicViewCellViewModel) {
         super.bind(model)
-        
         model.title.asDriver().drive(titleLabel.rx.text).disposed(by: cellDisposeBag)
         model.cover.map{ try? $0?.asURL() }.asDriver(onErrorJustReturn: nil).filterNil()
             .drive(coverImageView.rx.imageURL).disposed(by: cellDisposeBag)

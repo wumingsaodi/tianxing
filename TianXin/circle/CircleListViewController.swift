@@ -44,6 +44,8 @@ class CircleListViewController: UIViewController {
         ){
             index, viewModel, cell in
             cell.bind(viewModel)
+            cell.attentionButton.attentionTitle = "已加入"
+            cell.attentionButton.title = "加入"
         }.disposed(by: rx.disposeBag)
         output.items.map{$0.isEmpty}.drive(tableView.rx.isEmptyData).disposed(by: rx.disposeBag)
         // 点击cell

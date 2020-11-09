@@ -311,7 +311,14 @@ class NetWorkingHelper: NSObject {
 
 class SDSError: NSObject {
     var code:Int = -100;
-    var errMsg:String = ""
+    var errMsg:String = "" {
+        didSet{
+            if errMsg.contains("登录失效") {
+                LocalUserInfo.share.userId = nil
+               _ = kAppdelegate.islogin(isNeedLogin: true, isRootVC: true)
+            }
+        }
+    }
     
     convenience  init(error:AFError) {
         self.init()

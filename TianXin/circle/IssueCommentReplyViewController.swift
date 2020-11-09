@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import MJRefresh
-
+import PKHUD
 
 class IssueCommentReplyViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -50,7 +50,7 @@ class IssueCommentReplyViewController: UIViewController {
         bindViewModel()
         
         headerViewController.height.asObservable()
-            .bind(to: tableView.tableHeaderView!.rx.height)
+            .bind(to: tableView.rx.headerHeight)
             .disposed(by: rx.disposeBag)
     }
     
@@ -63,7 +63,15 @@ class IssueCommentReplyViewController: UIViewController {
         
         let reload = Observable.of(Observable.just(()), headerRefreshTrigger).merge()
         let tapToUser = Observable.of(
-            tableView.rx.modelSelected(IssueReplyItemViewModel.self).map{(
+            tableView.rx.modelSelected(IssueReplyItemViewModel.self)
+                .filter({ item in
+                    if item.issueReply.userId == LocalUserInfo.share.userId {
+                        HUD.flash(.label("您不能回复自己的回复"), delay: 1.5)
+                        return false
+                    }
+                    return true
+                })
+                .map{(
                 "\($0.issueReply.userId ?? 0)", // to userid
                 "2",
                 "\($0.issueReply.replyId ?? 0)",
@@ -91,6 +99,9 @@ class IssueCommentReplyViewController: UIViewController {
         output.commentNum.drive(replyNum).disposed(by: rx.disposeBag)
         // 点击头像
         output.tapUser.subscribe(onNext: { [weak self] userId in
+            if LocalUserInfo.share.userId?.toString() == userId {
+                return
+            }
             let vc = UserDetailViewController.`init`(withUserId: userId)
             self?.show(vc, sender: self)
         }).disposed(by: rx.disposeBag)
@@ -148,6 +159,9 @@ class IssueCommentReplyHeaderViewController: UIViewController {
             })
             .filterNil()
             .subscribe(onNext: { [weak self] comment in
+                if LocalUserInfo.share.userId == comment.userId {
+                    return
+                }
                 let vc = UserDetailViewController.`init`(withUserId: "\(comment.userId)")
                 self?.show(vc, sender: self)
             })
@@ -177,14 +191,37 @@ class IssueCommentReplyHeaderViewController: UIViewController {
             .filterNil()
             .map{[weak self] in
                 guard let self = self else { return 0 }
-                return ($0 as NSString)
-                    .boundingRect(with: .init(width: self.contentLabel.width, height: CGFloat.greatestFiniteMagnitude), options: .usesFontLeading, attributes: [.font: self.contentLabel.font!], context: nil).size.height + 140}
+                let label = UILabel()
+                label.font = self.contentLabel.font
+                label.numberOfLines = 0
+                label.text = $0
+                let height = label.sizeThatFits(.init(width: self.contentLabel.width, height: CGFloat.greatestFiniteMagnitude)).height
+//                let height = ($0 as NSString)
+//                    .boundingRect(with: .init(width: self.contentLabel.width, height: CGFloat.greatestFiniteMagnitude), options: [.usesFontLeading], attributes: [.font: self.contentLabel.font!], context: nil).size.height
+                return ceil(height) + 140}
             .drive(height)
             .disposed(by: rx.disposeBag)
         
-        self.view.rx.tapGesture()
+        
+        Observable.just(())
             .flatMapLatest({ _ -> Observable<IssueComment> in
                 return comment.asObservable()
+            })
+            .map{("\($0.userId)", "1", "\($0.remarkId)", $0.nickName ?? $0.userName ?? "")}
+            .bind(to: onTap)
+            .disposed(by: rx.disposeBag)
+        
+        self.view.rx.tapGesture()
+            .when(.ended)
+            .flatMapLatest({ _ -> Observable<IssueComment> in
+                return comment.asObservable()
+            })
+            .filter({ comment in
+                if LocalUserInfo.share.userId == comment.userId {
+                    HUD.flash(.label("您不能回复自己的评论"), delay: 1.5)
+                    return false
+                }
+                return true
             })
             .map{("\($0.userId)", "1", "\($0.remarkId)", $0.nickName ?? $0.userName ?? "")}
             .bind(to: onTap)

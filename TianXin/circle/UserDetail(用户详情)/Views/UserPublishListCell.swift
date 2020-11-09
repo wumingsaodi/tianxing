@@ -46,6 +46,15 @@ class UserPublishListCell: RxTableViewCell<UserPublishIssueItemViewModel> {
         imageCollectionViewHeightConstraint.constant = 0
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if #available(iOS 13, *) {
+            
+        } else {
+            circleCollectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
     override func bind(_ model: UserPublishIssueItemViewModel) {
         super.bind(model)
         
@@ -59,6 +68,8 @@ class UserPublishListCell: RxTableViewCell<UserPublishIssueItemViewModel> {
         model.replyNum.map({"\($0)"}).asDriver(onErrorJustReturn: nil)
             .drive(commentNumButton.rx.title()).disposed(by: cellDisposeBag)
         model.isLiked.asDriver().drive(likeNumButton.rx.isSelected).disposed(by: cellDisposeBag)
+        model.gender.map({$0 == 0 ? R.image.icon_man() : R.image.icon_girl()}).asDriverOnErrorJustComplete()
+            .drive(genderIcon.rx.image).disposed(by: cellDisposeBag)
         
         model.imageUrls.asDriver().drive(onNext: { [weak self] imageUrls in
             guard let self = self else { return }
@@ -120,7 +131,6 @@ class UserPublishListCell: RxTableViewCell<UserPublishIssueItemViewModel> {
                 self?.viewController()?.show(vc, sender: self)
             })
             .disposed(by: cellDisposeBag)
-        
         // Assertion failed: This is a feature to warn you that there is already a delegate (or data source) set somewhere previously. The action you are trying to perform will clear that delegate (data source) and that means that some of your features that depend on that delegate (data source) being set will likely stop working.
 //        model.imageUrls.asDriver()
 //            .drive(imageCollectionView.rx.items(cellIdentifier: "\(ImageCollectionViewCell.self)", cellType: ImageCollectionViewCell.self)){

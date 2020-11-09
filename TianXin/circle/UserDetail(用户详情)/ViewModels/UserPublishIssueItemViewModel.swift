@@ -22,6 +22,7 @@ struct UserPublishIssueItemViewModel {
     let isLiked = BehaviorRelay<Bool>(value: false)
     let circles = BehaviorRelay<[CircleItem]>(value: [])
     let circleNameWidths = BehaviorRelay<[String: CGFloat]>(value: [:])
+    let gender = BehaviorRelay<Int>(value: 0)
     
     let onLike = PublishSubject<(String, Bool)>()
     let onComment = PublishSubject<String>()
@@ -39,5 +40,6 @@ struct UserPublishIssueItemViewModel {
         isLiked.accept(item.isIssueLike)
         videoUrl.accept(item.issueVideo)
         circles.accept(item.joinRecommendList ?? [])
+        gender.accept(item.gender ?? 0)
     }
 }

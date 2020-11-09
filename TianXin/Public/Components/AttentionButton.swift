@@ -11,6 +11,8 @@ import RxCocoa
 import RxSwift
 
 class AttentionButton: UIControl {
+    var title = "关注"
+    var attentionTitle = "已关注"
     // 是否已关注
     var isAttented: Bool = false {
         didSet {
@@ -45,7 +47,7 @@ class AttentionButton: UIControl {
         if isAttented {
             self.iconView.width = 0
             self.iconView.isHidden = true
-            self.label.text = "已关注"
+            self.label.text = attentionTitle
             self.label.textColor = .white
             self.backgroundColor = .lightGray
             self.label.sizeToFit()
@@ -54,7 +56,7 @@ class AttentionButton: UIControl {
         } else {
             self.iconView.width = 15
             self.iconView.isHidden = false
-            self.label.text = "关注"
+            self.label.text = title
             self.label.textColor = Configs.Theme.Color.primary
             self.backgroundColor = .white
             self.label.sizeToFit()

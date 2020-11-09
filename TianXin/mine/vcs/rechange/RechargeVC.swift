@@ -115,7 +115,7 @@ class RechargeVC: SDSBaseVC {
                 
                 self!.selectedMethodBut = but
             }
-            but.setButType(type: .imgTop, padding: 7)
+            but.setButType(type: .imgTop, padding: 5)
             but.cornor(conorType: .allCorners, reduis: 4,borderWith: 1,borderColor: baseVCBackGroudColor_grayWhite)
             let imgv = UIImageView(image: UIImage(named: "xuan_zhong_small"))
             imgv.isHidden = true

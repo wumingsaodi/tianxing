@@ -10,7 +10,7 @@ import Foundation
 
 struct MovieDetail: Codable {
     var isLike: Int? // 是否喜欢
-    var loginIsCollect: Int? // 是否收藏
+    var isCollect: Int? // 是否收藏
     var topicWatchMovieList: [MovieInfo]?
     var movieWatch6List: [TopicMovie]?
 }

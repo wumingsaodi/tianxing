@@ -12,6 +12,8 @@ import RxCocoa
 
 class CommentSectionHeaderViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var sortedWayLabel: UILabel!
+    
     @IBOutlet weak var contentViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var contentViewTrailingConstraint: NSLayoutConstraint!
     
@@ -30,6 +32,7 @@ class CommentSectionHeaderViewController: UIViewController {
     
     func bind(_ title: String) {
         titleLabel.text = title
+        sortedWayLabel.isHidden = title.contains("精选")
     }
     
 }

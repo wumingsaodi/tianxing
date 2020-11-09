@@ -137,6 +137,7 @@
 		3A7F17D825498095001987C7 /* KOKMoneyVCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7F17D725498095001987C7 /* KOKMoneyVCViewModel.swift */; };
 		3A8D16A2252EDDC70003A5A4 /* UserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D16A1252EDDC70003A5A4 /* UserInfoViewModel.swift */; };
 		3A8D16F525319F7C0003A5A4 /* MineTaskCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D16F325319F7C0003A5A4 /* MineTaskCenterVC.swift */; };
+		3ACC5E3525564A20004B3046 /* HomeDetialTopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC5E3425564A20004B3046 /* HomeDetialTopViewModel.swift */; };
 		3AD22650253EB8F200D72724 /* CircleHomeMyRemarkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD2264F253EB8F200D72724 /* CircleHomeMyRemarkVC.swift */; };
 		3AD2265E253EF46C00D72724 /* CircleDetailHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD2265D253EF46C00D72724 /* CircleDetailHead.swift */; };
 		3AD2266E253EF4A100D72724 /* CircleDetailHead.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AD2266D253EF4A100D72724 /* CircleDetailHead.xib */; };
@@ -446,6 +447,7 @@
 		3A7F17D725498095001987C7 /* KOKMoneyVCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KOKMoneyVCViewModel.swift; sourceTree = "<group>"; };
 		3A8D16A1252EDDC70003A5A4 /* UserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewModel.swift; sourceTree = "<group>"; };
 		3A8D16F325319F7C0003A5A4 /* MineTaskCenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineTaskCenterVC.swift; sourceTree = "<group>"; };
+		3ACC5E3425564A20004B3046 /* HomeDetialTopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetialTopViewModel.swift; sourceTree = "<group>"; };
 		3AD2264F253EB8F200D72724 /* CircleHomeMyRemarkVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleHomeMyRemarkVC.swift; sourceTree = "<group>"; };
 		3AD2265D253EF46C00D72724 /* CircleDetailHead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleDetailHead.swift; sourceTree = "<group>"; };
 		3AD2266D253EF4A100D72724 /* CircleDetailHead.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CircleDetailHead.xib; sourceTree = "<group>"; };
@@ -793,6 +795,7 @@
 				3A60B39C25246FF100868534 /* HomeViewModel.swift */,
 				3A54738025381DE000C81E1B /* HomeDetailViewMoodel.swift */,
 				3A539E542544117000565D62 /* HomeVideoSearchViewModel.swift */,
+				3ACC5E3425564A20004B3046 /* HomeDetialTopViewModel.swift */,
 			);
 			path = viewModels;
 			sourceTree = "<group>";
@@ -1890,6 +1893,7 @@
 				B562C6AD255019F800B0547E /* TXTextFiled.swift in Sources */,
 				B5847967253436E00003A686 /* Comment.swift in Sources */,
 				B556C9582538100D00CF8EB4 /* AvatarSelectionCell.swift in Sources */,
+				3ACC5E3525564A20004B3046 /* HomeDetialTopViewModel.swift in Sources */,
 				B51A5BF8252D8DC700E5393B /* Reachability.swift in Sources */,
 				3A60B38D2521FA5500868534 /* SDSCodeView.swift in Sources */,
 				3A79FAB8251A247200B9EA97 /* HomeMoretableViewCell.swift in Sources */,
@@ -2152,10 +2156,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TianXin/Preview Content\"";
-				DEVELOPMENT_TEAM = JFKBQ7736X;
+				DEVELOPMENT_TEAM = 3JYT5TV3H2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TianXin/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2175,10 +2179,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TianXin/Preview Content\"";
-				DEVELOPMENT_TEAM = JFKBQ7736X;
+				DEVELOPMENT_TEAM = 3JYT5TV3H2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TianXin/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

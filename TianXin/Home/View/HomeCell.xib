@@ -18,10 +18,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="defualt" translatesAutoresizingMaskIntoConstraints="NO" id="p7b-4h-khG">
-                        <rect key="frame" x="0.0" y="0.0" width="260" height="130"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="130" id="GDQ-qy-pZP"/>
-                        </constraints>
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="169"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="5"/>
@@ -45,7 +42,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZuI-Le-t91">
-                        <rect key="frame" x="0.0" y="110" width="260" height="20"/>
+                        <rect key="frame" x="0.0" y="149" width="260" height="20"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9r-pB-VUR">
                                 <rect key="frame" x="226" y="-1" width="29" height="22"/>
@@ -97,6 +94,7 @@
                 <constraint firstAttribute="trailing" secondItem="UyP-ia-OT3" secondAttribute="trailing" id="Tg4-Bh-kPn"/>
                 <constraint firstItem="p7b-4h-khG" firstAttribute="bottom" secondItem="ZuI-Le-t91" secondAttribute="bottom" id="tCC-RC-4rw"/>
                 <constraint firstItem="p7b-4h-khG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="vkQ-jb-shu"/>
+                <constraint firstAttribute="bottom" secondItem="p7b-4h-khG" secondAttribute="bottom" multiplier="1.208" id="xg6-hV-IUq"/>
                 <constraint firstAttribute="trailing" secondItem="ZuI-Le-t91" secondAttribute="trailing" id="xoB-Vg-eYN"/>
                 <constraint firstItem="UyP-ia-OT3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="zST-hu-5kk"/>
             </constraints>

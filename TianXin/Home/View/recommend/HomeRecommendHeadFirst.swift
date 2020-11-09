@@ -31,12 +31,14 @@ class HomeRecommendHeadFirst: UICollectionReusableView {
             make.right.equalToSuperview().offset(-leftRightMargin)
             make.top.equalToSuperview().offset(24.5)
             make.width.equalTo(scaleX(97))
+            make.height.equalTo(scaleX(rightbut.currentImage!.size.height))
 //            make.size.equalTo(self.ScaleSize(img: rightbut.currentImage!))
         }
         leftBut.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(leftRightMargin)
             make.bottom.equalTo(rightbut)
             make.width.equalTo(scaleX(97))
+            make.height.equalTo(scaleX(leftBut.currentImage!.size.height))
 //            make.size.equalTo(self.ScaleSize(img: leftBut.currentImage!))
         }
         let images:[UIImage] = [#imageLiteral(resourceName: "Game_dianjing"),#imageLiteral(resourceName: "Game_qipai"),#imageLiteral(resourceName: "Game_zhenren"),#imageLiteral(resourceName: "Game_buyu")]
@@ -56,12 +58,14 @@ class HomeRecommendHeadFirst: UICollectionReusableView {
             make.left.equalTo(but1.snp.right).offset(margin)
             make.top.equalTo(rightbut).offset(-4)
             make.width.equalTo(butw)
+            make.height.equalTo(scaleX(but2.currentImage!.size.height))
 //            make.size.equalTo(self.ScaleSize(img: leftBut.currentImage!))
         }
         but1.snp.makeConstraints { (make) in
             make.left.equalTo(leftBut.snp.right).offset(margin)
             make.bottom.equalTo(but2)
             make.width.equalTo(butw)
+            make.height.equalTo(scaleX(but1.currentImage!.size.height))
 //            make.size.equalTo(self.ScaleSize(img: leftBut.currentImage!))
 //                make.size.equalTo(CGSize(width: butw, height: buth))
         }
@@ -75,6 +79,7 @@ class HomeRecommendHeadFirst: UICollectionReusableView {
             make.left.equalTo(but1)
             make.bottom.equalTo(rightbut)
             make.width.equalTo(butw)
+            make.height.equalTo(scaleX(but3.currentImage!.size.height))
 //            make.size.equalTo(self.ScaleSize(img: leftBut.currentImage!))
 //                make.size.equalTo(CGSize(width: butw, height: buth))
         }
@@ -85,7 +90,8 @@ class HomeRecommendHeadFirst: UICollectionReusableView {
         but4.snp.makeConstraints {  (make) in
             make.left.equalTo(but2)
             make.bottom.equalTo(rightbut)
-            make.width.equalTo(butw)
+            make.width.equalTo(butw - 3)
+            make.height.equalTo(scaleX(but4.currentImage!.size.height))
 //            make.size.equalTo(CGSize(width: 30, height: 30))
 //            make.size.equalTo(self.ScaleSize(img: leftBut.currentImage!))
 //                make.size.equalTo(CGSize(width: butw, height: buth))
@@ -106,7 +112,24 @@ class HomeRecommendHeadFirst: UICollectionReusableView {
 //MARK: - actions
 extension HomeRecommendHeadFirst {
     func titleItemClick(inde:Int){
-        
+        if !kAppdelegate.islogin() {
+            return
+        }
+        NetWorkingHelper.normalPost(url: "/gl/user/getAppHome", params: [:]) { (dict) in
+            guard let url = dict["data"] as? String else{
+                return
+            }
+            LocalUserInfo.share.getLoginInfo { (model) in
+            
+            }
+            let gameUrl  = url + "?token=" + (LocalUserInfo.share.sessionId  ?? "")
+            if   let superV = self.superview as? SDSBaseCoverPopView{
+                superV.cancel()
+            }
+            let webVc = SDSBaseWebVC.init(url: gameUrl)
+            kAppdelegate.getNavvc()?.pushViewController(webVc, animated: true)
+        }
+
     }
 }
 
@@ -117,7 +140,7 @@ class SDSBanar: XRCarouselView {
     func createBarnarView()->XRCarouselView{
         let banner = XRCarouselView()
         banner.placeholderImage = UIImage(named: "defualt")
-        banner.setPageColor(.white, andCurrentPageColor: .red)
+        banner.setPageColor(.Hex("#FFACABAB"), andCurrentPageColor: .Hex("#FFFFD251"))
         banner.time = 1.5
         return banner
     }

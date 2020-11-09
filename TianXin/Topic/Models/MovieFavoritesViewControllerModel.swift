@@ -50,9 +50,9 @@ class MovieFavoritesViewControllerModel: NSObject, ViewModelType {
             guard let self = self else { return Observable.just([]) }
             self.page += 1
             return UserApi.movieFavorites(currPage: self.page, pageSize: self.pageSize).request(keyPath: "topicVideoList", type: [TopicMovie].self, provider: self.provider).trackActivity(self.footerLoading)
-        }).subscribe(onNext: { movies in
+        }).subscribe(onNext: { [weak self] movies in
             if movies.isEmpty {
-                self.page -= 1
+                self?.page -= 1
             }
             items.accept(items.value + movies.map { MovieFavoritesCellViewModel(movie: $0) })
         }).disposed(by: rx.disposeBag)

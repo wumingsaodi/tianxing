@@ -21,10 +21,14 @@ class HomeMovieItem: BaseModel {
 }
 class HomedetailModel: BaseModel {
     var guess:[HomeItemModel] =  [HomeItemModel]()
-    var ilike = 0
+    ///是否收藏
+    var ilike = false
     var movie:HomeMovieItem = HomeMovieItem()
     var residue = 0
     var totalCount = 0
+    //是否点赞
+    var isMovLike:Bool = false
+    
 }
 
 class HomeDetailViewMoodel: NSObject {

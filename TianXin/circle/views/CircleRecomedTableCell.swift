@@ -162,6 +162,9 @@ class CircleRecomedTableCell: UITableViewCell {
             ncell.UserLoveBlock = self?.UserLoveBlock
             let model = self?.model.remarkList[indePath.row]
             ncell.tapAvatar = { model in
+                if LocalUserInfo.share.userId == model.userId {
+                    return
+                }
                 let vc = UserDetailViewController.`init`(withUserId: model.userId.toString())
                 self?.viewController()?.navigationController?.pushViewController(vc, isNeedLogin: true, animated: true)
             }
@@ -177,6 +180,7 @@ class CircleRecomedTableCell: UITableViewCell {
             vc.viewModel = IssueCommentReplyViewControllerModel(remarkId: "\(remark.remarkId)")
             self.viewController()?.navigationController?.pushViewController(vc, isNeedLogin: true, animated: true)
         }
+        tab.isScrollEnabled = false
         return tab
     }()
     lazy var  imgvs :UIView = {
@@ -370,7 +374,12 @@ class CircleRecomedTableCell: UITableViewCell {
         }else{//没有图片
            createEmtyViewForpics()
         }
-        if model.remarkList.count > 2 {
+        if model.remarkList.count >= 3 {
+            commentTableView.snp.updateConstraints { (make) in
+                make.height.equalTo(CircleCommentCell.cellH*3)
+            }
+        }
+       else if model.remarkList.count == 2 {
             commentTableView.snp.updateConstraints { (make) in
                 make.height.equalTo(CircleCommentCell.cellH*2)
             }

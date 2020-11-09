@@ -20,7 +20,7 @@ class SDSPlayerVC: UIViewController {
         }
     }
     ///是不是允许已进入就播放
-    var isCanBeiginPlay:Bool = true {
+    var isCanBeiginPlay:Bool = false {
         didSet {
             self.playV.isCanBeiginPlay = isCanBeiginPlay
         }

@@ -131,6 +131,7 @@ class CircleHomeMyIssueCell: UITableViewCell {
         }).sdsDidSelectCell { (ndexPath) in
             
         }
+        tab.isScrollEnabled = false
         return tab
     }()
     lazy var  imgvs :UIView = {
@@ -248,7 +249,12 @@ class CircleHomeMyIssueCell: UITableViewCell {
         }else{//没有图片
            createEmtyViewForpics()
         }
-        if model.remarkList.count > 2 {
+        if model.remarkList.count >= 3 {
+           commentTableView.snp.updateConstraints { (make) in
+               make.height.equalTo(CircleCommentCell.cellH*3)
+           }
+        }
+        else  if model.remarkList.count == 2 {
             commentTableView.snp.updateConstraints { (make) in
                 make.height.equalTo(CircleCommentCell.cellH*2)
             }

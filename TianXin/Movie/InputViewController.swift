@@ -50,14 +50,14 @@ class InputViewController: UIViewController {
             .bind(to: textHeightConstraint.rx.constant)
             .disposed(by: rx.disposeBag)
         // 发送评论
-        textView.rx.didEndEditing.asObservable()
-            .subscribe(onNext: {[weak self] in
-                if let text = self?.textView.text, !text.isEmpty {
-                    self?.textView.text = ""
-                    self?.sendComment.onNext(text)
-                }
-            })
-            .disposed(by: rx.disposeBag)
+//        textView.rx.didEndEditing.asObservable()
+//            .subscribe(onNext: {[weak self] in
+//                if let text = self?.textView.text, !text.isEmpty {
+//                    self?.textView.text = ""
+//                    self?.sendComment.onNext(text)
+//                }
+//            })
+//            .disposed(by: rx.disposeBag)
         // 点赞电影
         likeButton.rx.tap
             .bind(to: likeEvent)
@@ -69,8 +69,19 @@ class InputViewController: UIViewController {
         // 分享
         shareButton.rx.tap
             .asObservable()
-            .subscribe(onNext: {
-                ShareFacade.share()
+            .subscribe(onNext: { [weak self] in
+                let vc = TuiguangVC()
+                vc.isFromeStorybord = true
+                self?.show(vc, sender: self)
+            })
+            .disposed(by: rx.disposeBag)
+        commentButton.rx.tap
+            .asObservable()
+            .subscribe(onNext: {[weak self] in
+                if let text = self?.textView.text, !text.isEmpty {
+                    self?.textView.text = ""
+                    self?.sendComment.onNext(text)
+                }
             })
             .disposed(by: rx.disposeBag)
             

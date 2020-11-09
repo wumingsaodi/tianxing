@@ -26,7 +26,7 @@ class mineSettingVC: SDSBaseVC, UINavigationControllerDelegate {
             make.top.equalToSuperview().offset(KnavHeight + 10)
             
         }
-        setNavRightBut()
+//        setNavRightBut()
         LocalUserInfo.share.getLoginInfo {[weak self] (model) in
             guard let model = model else{
                 return
@@ -43,14 +43,14 @@ class mineSettingVC: SDSBaseVC, UINavigationControllerDelegate {
         }
     }
 
-    func  setNavRightBut() {
-        let but = UIButton.createButWith(title: "保存",  font: .pingfangSC(17), backGroudColor: mainYellowColor) {[weak self] (but) in
-            self?.uploadInfo()
-        }
-        but.frame = CGRect(x: 100, y: 100, width: 60, height: 30)
-        but.cornor(conorType: .allCorners, reduis: 10)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: but)
-    }
+//    func  setNavRightBut() {
+//        let but = UIButton.createButWith(title: "保存",  font: .pingfangSC(17), backGroudColor: mainYellowColor) {[weak self] (but) in
+//            self?.uploadInfo()
+//        }
+//        but.frame = CGRect(x: 100, y: 100, width: 60, height: 30)
+//        but.cornor(conorType: .allCorners, reduis: 10)
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: but)
+//    }
     lazy   var tableView:SDSTableView = {
         let tab = SDSTableView.CreateTableView().sdsNumOfRows(block: { (_) -> Int in
             return 5
@@ -87,13 +87,17 @@ class mineSettingVC: SDSBaseVC, UINavigationControllerDelegate {
                 self?.view.addSubview(self!.pickV)
                 self!.pickV.set(title: "选择年龄", subTitles: self!.ageTitles) { (index,text) in
                     self?.subs[indexPath.row] = text
-                    self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    self?.uploadInfo()
+//
+//                    self?.tableView.reloadRows(at: [indexPath], with: .automatic)
                 }
             }else if indexPath.row == 3 {//性别
                 self?.view.addSubview(self!.pickV)
                 self!.pickV.set(title: "选择性别", subTitles: ["男","女"]) { (index,text) in
                     self?.subs[indexPath.row] = text
-                    self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    self?.uploadInfo()
+//                    self?.subs[indexPath.row] = text
+//                    self?.tableView.reloadRows(at: [indexPath], with: .automatic)
                 }
             }else if indexPath.row == 4 {//个性签名
               let  vc = MineSignatureVC()

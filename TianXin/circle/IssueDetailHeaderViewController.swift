@@ -28,6 +28,9 @@ class IssueDetailHeaderViewController: UIViewController {
     var flowLayout: UICollectionViewFlowLayout {
         return imageCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
     }
+    var circleFlowLayout: UICollectionViewFlowLayout {
+        return circleCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+    }
     
     var userId: String = ""
     
@@ -36,10 +39,12 @@ class IssueDetailHeaderViewController: UIViewController {
     let onLike = PublishSubject<Void>()
     let onAttention = PublishSubject<Void>()
     let onFavorite = PublishSubject<Void>()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         playerView.isCanBeiginPlay = false
+        
         avatarImageView.isUserInteractionEnabled = true
         setupLayout()
         
@@ -48,6 +53,9 @@ class IssueDetailHeaderViewController: UIViewController {
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
+                if LocalUserInfo.share.userId?.toString() == self.userId {
+                    return
+                }
                 let vc = UserDetailViewController.`init`(withUserId: self.userId)
                 self.show(vc, sender: self)
             })
@@ -66,7 +74,7 @@ class IssueDetailHeaderViewController: UIViewController {
             .bind(to: onFavorite)
             .disposed(by: rx.disposeBag)
     }
-    
+
     func bind(_ issue: Driver<IssueDetail>) {
         issue.map { $0.userId == LocalUserInfo.share.userId }.asDriver()
             .drive(attentionButton.rx.isHidden)
@@ -75,7 +83,7 @@ class IssueDetailHeaderViewController: UIViewController {
             .filterNil()
             .drive(avatarImageView.rx.imageURL)
             .disposed(by: rx.disposeBag)
-        issue.map { $0.userName }.drive(nameLabel.rx.text).disposed(by: rx.disposeBag)
+        issue.map { $0.nickName ?? $0.userName }.drive(nameLabel.rx.text).disposed(by: rx.disposeBag)
         issue.map { $0.issueContent }.drive(contentLabel.rx.text).disposed(by: rx.disposeBag)
         issue.map { $0.createTime }.drive(timeLabel.rx.text).disposed(by: rx.disposeBag)
         issue.map { "\($0.issueLikeCount ?? 0)" }.drive(likeButton.rx.title()).disposed(by: rx.disposeBag)
@@ -165,6 +173,16 @@ class IssueDetailHeaderViewController: UIViewController {
     private func setupLayout() {
         let itemWidth = (Configs.Dimensions.screenWidth - 48 - flowLayout.minimumInteritemSpacing * 2) / 3
         flowLayout.itemSize = .init(width: itemWidth, height: itemWidth)
+        circleFlowLayout.estimatedItemSize = .init(width: 1, height: 1)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if #available(iOS 13, *) {
+            
+        } else {
+            circleCollectionView.collectionViewLayout.invalidateLayout()
+        }
     }
 }
 

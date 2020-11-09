@@ -13,10 +13,14 @@ class HomeSearchVC: SDSBaseVC {
     var currPage:Int = 0
     var keyWord:String = ""{
         didSet{
-            if let index =    searchTitles.firstIndex(of: keyWord){
+           let newkeyWord =  keyWord.trimmingCharacters(in: .whitespaces)
+            if newkeyWord.count <= 0 || newkeyWord == "" {
+                return
+            }
+            if let index =    searchTitles.firstIndex(of: newkeyWord){
                 searchTitles.remove(at: index)
             }
-            searchTitles.insert(keyWord, at: 0)
+            searchTitles.insert(newkeyWord, at: 0)
         }
         
     }

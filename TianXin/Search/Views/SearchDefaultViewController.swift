@@ -43,6 +43,11 @@ class SearchDefaultViewController: UIViewController {
             .drive(collectionView.rx.loadDataState)
             .disposed(by: rx.disposeBag)
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        flowLayout?.invalidateLayout()
+    }
 
     @IBAction func onDeleteAll(_ sender: UIButton) {
         deleteAll.onNext(())

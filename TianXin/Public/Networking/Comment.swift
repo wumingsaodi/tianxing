@@ -14,6 +14,7 @@ struct Comment: Codable {
     var userId: Int
     var userLogo: String?
     var userName: String?
+    var nickName: String?
     var remark: String?
     var createTime: String?
     var topicMovieReplyNum: Int

@@ -49,7 +49,7 @@ class SettingVC: SDSBaseVC {
         let but = UIButton.createButWith(title: "退出登录", titleColor: .white, font: .pingfangSC(15),backGroudImg:img ) {[weak self] (_) in
             LoginViewModel.share.requestLogout {
                 self?.perform(block: {
-                    self?.navigationController?.popViewController(animated: true)
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }, timel: 0.5)
             }
             //退出登陆

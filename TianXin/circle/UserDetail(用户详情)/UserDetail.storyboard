@@ -402,6 +402,7 @@
                         <outlet property="backgroundImageView" destination="yhd-Xf-Y7h" id="TsR-o2-idy"/>
                         <outlet property="circleNumLabel" destination="QHC-B0-yf9" id="zih-n5-Tbd"/>
                         <outlet property="fansNumLabel" destination="fuW-UJ-tUt" id="9zz-z1-TfB"/>
+                        <outlet property="genderIcon" destination="TzV-RG-5ma" id="6SS-EN-mw4"/>
                         <outlet property="joinButtonRightConstraint" destination="hpm-Dk-HUu" id="vbh-Z1-RLJ"/>
                         <outlet property="nameLabel" destination="Ytz-id-sFO" id="cBs-gA-zHb"/>
                         <outlet property="navBar" destination="OYb-XG-Ut8" id="7tf-Dg-HcM"/>

@@ -9,6 +9,7 @@
 import UIKit
 
 class TuiguangVC: SDSBaseVC {
+    var isFromeStorybord:Bool = false
     var invisters:[inviterItem] = [inviterItem]()
     var qrCodeImg:UIImage!
     var  qrString:String = "www.baidu.com"{
@@ -22,6 +23,10 @@ class TuiguangVC: SDSBaseVC {
         super.viewDidLoad()
         self.title = "推广中心"
         setUI()
+      
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         requist()
     }
     func requist() {
@@ -50,7 +55,12 @@ class TuiguangVC: SDSBaseVC {
         bigbgimgv.contentMode = .scaleAspectFill
         scrollv.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.top.equalToSuperview().offset(KnavHeight)
+            if !isFromeStorybord{
+                make.top.equalToSuperview().offset(KnavHeight)
+            }else{
+                make.top.equalToSuperview()
+            }
+           
             make.height.equalTo(scaleX((bigimg?.size.height)!))
                }
         scrollv.addSubview(bigbgimgv)

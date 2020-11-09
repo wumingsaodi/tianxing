@@ -16,6 +16,7 @@ struct IssueDetail: Codable {
     var issueVideo: String?
     var issuePic: [String]?
     var userLogo: String?
+    var nickName: String?
     var userName: String?
     var userId: Int
     @BetterBoolCodable var isAttention: Bool

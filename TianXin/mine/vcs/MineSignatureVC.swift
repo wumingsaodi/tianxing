@@ -29,7 +29,7 @@ class MineSignatureVC: SDSBaseVC {
         
         LocalUserInfo.share.getLoginInfo {[weak self] (model) in
             if let model = model {
-                self!.nameF.text = model.userSign
+                self?.nameF.text = model.userSign
             }
         }
     }

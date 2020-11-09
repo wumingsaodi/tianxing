@@ -14,6 +14,8 @@ import MJRefresh
 
 class MovieDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var infoHeaderHeightConstraint: NSLayoutConstraint!
+    
     var viewModel: MovieDetailViewControllerModel!
     
     lazy var playerController: MoviePlayerViewController? = {
@@ -34,10 +36,12 @@ class MovieDetailViewController: UIViewController {
     
     let footerRefreshTriggle = PublishSubject<Void>()
     let headerRefreshTriggle = PublishSubject<Void>()
+    let reload = PublishSubject<Void>()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = ""
         tableView.tableFooterView = UIView()
         infoHeaderController?.movie.accept(viewModel.movie)
         playerController?.movie = viewModel.movie
@@ -57,10 +61,10 @@ class MovieDetailViewController: UIViewController {
         viewModel.noMoreData.bind(to: self.tableView.rx.noMoreData).disposed(by: rx.disposeBag)
         viewModel.isLoding.asDriver().drive(self.tableView.rx.isLodingData).disposed(by: rx.disposeBag)
         
-        let reload = Observable.of(Observable.just(()), headerRefreshTriggle.asObservable()).merge()
+        
+        let reload = Observable.of(Observable.just(()), headerRefreshTriggle.asObservable(), self.reload).merge()
         
         let input = MovieDetailViewControllerModel.Input(
-            recommends: recommendController!.items,
             sendComment: inputController!.sendComment,
             reload: reload,
             footerRefresh: footerRefreshTriggle,
@@ -70,14 +74,21 @@ class MovieDetailViewController: UIViewController {
         let output = viewModel.transform(input: input)
         // 更新子控制器状态
         inputController?.bind(output.isLikeMovie, output.isFavoritedMovie)
-        infoHeaderController?.bind(output.isLikeMovie, isFavorited: output.isFavoritedMovie, keywords: output.keywords)
-        
+        infoHeaderController?.bind(output.isLikeMovie, isFavorited: output.isFavoritedMovie, keywords: output.keywords, likeCount: output.likeCount)
+//        infoHeaderController?.bind(output.movie)
+        recommendController?.bind(output.recommends)
         let itemHeight = recommendController?.itemHeight ?? 0
         // 动态计算table view height
-        recommendController?.items.asDriver()
-            .drive(onNext: {[weak self] items in
-                self?.tableView.tableHeaderView?.height = CGFloat((items.count + 1) / 2) * itemHeight + 130 + 44
-            }).disposed(by: rx.disposeBag)
+        Driver.combineLatest(output.recommends, output.keywords)
+            .drive(onNext: { [weak self] recomends, keywords in
+                let infoHeight: CGFloat = 70 + (keywords.isEmpty ? 0 : 44)
+                self?.infoHeaderHeightConstraint.constant = infoHeight
+                self?.view.layoutIfNeeded()
+                let recomendHeight = 44 + CGFloat((recomends.count + 1) / 2) * itemHeight
+                self?.tableView.tableHeaderView?.height = infoHeight + recomendHeight
+                self?.tableView.reloadData()
+            })
+            .disposed(by: rx.disposeBag)
         // 渲染list
         output.comments
             .drive(tableView.rx.items(cellIdentifier: "\(CommentCell.self)", cellType: CommentCell.self)) {
@@ -109,7 +120,6 @@ class MovieDetailViewController: UIViewController {
             .subscribe(onNext: { [weak self] item in
                 // 暂停当前播放
                 self?.playerController?.pause()
-                
                 let vc = MovieDetailViewController.instanceFrom(storyboard: "Movie")
                 vc.viewModel = MovieDetailViewControllerModel(movie: item.movie)
                 self?.show(vc, sender: self)

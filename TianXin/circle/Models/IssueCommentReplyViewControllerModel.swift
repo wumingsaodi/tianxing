@@ -192,6 +192,10 @@ class IssueCommentReplyViewControllerModel: NSObject, ViewModelType {
                     SDSHUD.showError("请前往个人中心设置昵称")
                     return false
                 }
+                if LocalUserInfo.share.userId?.toString() == self.replyInfo?.0 {
+                    SDSHUD.showError("不能给自己回复！")
+                    return false
+                }
                 return true
             })
             .flatMapLatest({[weak self] text -> Observable<JSON> in
@@ -308,17 +312,16 @@ struct IssueReplyItemViewModel {
 
 extension Array where Element == IssueReplyItemViewModel {
     mutating func likedToggle(forid id: String) -> Element? {
-        guard let index = self.firstIndex(where: {"\($0.issueReply.replyId ?? 0)" == id}) else {
+        guard let index = self.firstIndex(where: {"\($0.issueReply.id)" == id}) else {
             return nil
         }
         var issueReply = self[index].issueReply
         if issueReply.isRmkLike == 1 {
             issueReply.isRmkLike = 0
-            issueReply.isLikeCount = Swift.max(0, (issueReply.isLikeCount ?? 0) - 1)
+            issueReply.isLikeCount -= 1
         } else {
             issueReply.isRmkLike = 1
-            issueReply.isLikeCount = (issueReply.isLikeCount ?? 0) + 1
-            
+            issueReply.isLikeCount += 1
         }
         let model = IssueReplyItemViewModel(issueReply)
         self[index] = model

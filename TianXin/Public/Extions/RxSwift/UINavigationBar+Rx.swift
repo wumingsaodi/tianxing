@@ -18,6 +18,7 @@ extension Reactive where Base: UINavigationBar {
             let image =  try? UIImage(color: .init(white: 1, alpha: pAlhpa))
             bar.setBackgroundImage(image, for: .default)
             bar.subviews.forEach { $0.alpha = pAlhpa }
+            bar.shadowImage = UIImage()
         }
     }
 }

@@ -31,6 +31,8 @@ class MovieListOnTopicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+        
         makeUI()
         collectionView.configureDataSetView(options: [.empty: "暂无数据"], isFullScreen: false)
         
@@ -72,13 +74,6 @@ class MovieListOnTopicViewController: UIViewController {
             ]
         }.asDriver().drive(collectionView.rx.items(dataSource: dataSource)).disposed(by: rx.disposeBag)
         
-//        output?.items.drive(collectionView.rx.items(cellIdentifier: "TopicMovieListCell", cellType: TopicMovieListCell.self)) {
-//            collectionView, viewModel, cell in
-//            cell.bind(viewModel)
-//        }.disposed(by: rx.disposeBag)
-        output?.selected.drive(onNext: { item in
-            
-        }).disposed(by: rx.disposeBag)
         output?.loadDataState.filterNil().bind(to: collectionView.rx.loadDataState).disposed(by: rx.disposeBag)
         
         collectionView.rx.didScroll
@@ -86,7 +81,7 @@ class MovieListOnTopicViewController: UIViewController {
             .flatMapLatest({ [weak self]() -> Observable<CGFloat> in
                 guard let self = self else { return Observable.just(0) }
                 self.currentOffset = self.collectionView.contentOffset.y
-                let alpha = 1 - (self.headerHeight - self.collectionView.contentOffset.y) / self.headerHeight
+                let alpha = 1 - (self.headerHeight / 2.0 - self.collectionView.contentOffset.y) / (self.headerHeight / 2.0)
                 return Observable.just(alpha)
             }).asDriver(onErrorJustReturn: 0)
             .drive(navigationController!.navigationBar.rx.alpha)
@@ -117,7 +112,7 @@ class MovieListOnTopicViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let alpha = 1 - (self.headerHeight - self.collectionView.contentOffset.y) / self.headerHeight
+        let alpha = 1 - (self.headerHeight  - self.collectionView.contentOffset.y) / self.headerHeight
         Observable.just(alpha).bind(to: navigationController!.navigationBar.rx.alpha).disposed(by: rx.disposeBag)
     }
     
@@ -139,5 +134,13 @@ extension MovieListOnTopicViewController.SectionModel: SectionModelType {
     init(original: MovieListOnTopicViewController.SectionModel, items: [TopicMovieListCellViewModel]) {
         self = original
         self.items = items
+    }
+}
+
+extension MovieListOnTopicViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let width = Configs.Dimensions.screenWidth
+        let height = (190 as CGFloat).fitting
+        return .init(width: width, height: ceil(height) + 60)
     }
 }

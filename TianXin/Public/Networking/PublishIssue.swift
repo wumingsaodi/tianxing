@@ -24,6 +24,7 @@ struct PublishIssue: Codable {
     var issueAllReplyCount: Int?
     var squareRemarkCount: Int?
     var joinRecommendList: [CircleItem]?
+    var gender: Int?
 }
 
 struct IssueRemark: Codable {

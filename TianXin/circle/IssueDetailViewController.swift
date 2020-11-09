@@ -109,6 +109,9 @@ class IssueDetailViewController: UIViewController {
             .disposed(by: rx.disposeBag)
         // 点击头像
         output.tapUser.subscribe(onNext: { [weak self] userId in
+            if LocalUserInfo.share.userId?.toString() == userId {
+                return
+            }
             let vc = UserDetailViewController.`init`(withUserId: userId)
             self?.show(vc, sender: self)
         }).disposed(by: rx.disposeBag)
@@ -128,9 +131,16 @@ extension IssueDetailViewController: UITableViewDelegate {
         }
         return v
     }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = UIView()
+        return footer
+    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard let numberOfRows = tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section), numberOfRows > 0 else { return 0 }
         return 44
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
     }
 }
 

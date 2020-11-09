@@ -147,6 +147,7 @@ class MineVC: SDSBaseVC {
             but.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
                 make.left.equalToSuperview().offset(x)
+                make.width.equalTo(butw)
             }
             x += butw
         }
@@ -270,6 +271,7 @@ class MineVC: SDSBaseVC {
         nameL.snp.makeConstraints { (make) in
 //            make.left.centerY.equalToSuperview().offset(-20)
             make.bottom.equalToSuperview().offset(-50)
+            make.left.equalToSuperview()
         }
         let but = UIButton.createButWith( image: UIImage(named: "Back_more")) { (_) in
             let vc = mineSettingVC()

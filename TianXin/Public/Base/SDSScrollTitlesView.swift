@@ -36,7 +36,7 @@ class titleCollectCell: UICollectionViewCell {
         self.addSubview(selectedimgV)
               selectedimgV.snp.makeConstraints { (make) in
                   make.width.equalTo(20)
-                  make.height.equalTo(6)
+                  make.height.equalTo(3)
                   make.centerX.equalToSuperview()
                   make.bottom.equalToSuperview()
               }
@@ -89,6 +89,7 @@ class SDSScrollTitlesView: UIView {
     func  setLayout() -> UICollectionViewFlowLayout {
         let lay = UICollectionViewFlowLayout()
         lay.scrollDirection = .horizontal
+//        lay.estimatedItemSize  = CGSize(width: titleWidth, height: titleHeiht)
         lay.itemSize = CGSize(width: titleWidth, height: titleHeiht)
 //        let totalW:CGFloat = Configs.Dimensions.screenWidth - CGFloat(titles.count) * titleWidth
         lay.minimumInteritemSpacing =  0    //totalW /  CGFloat((titles.count + 1))

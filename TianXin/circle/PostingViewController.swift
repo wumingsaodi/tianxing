@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import ZLPhotoBrowser
 import Photos
+import PKHUD
 
 class PostingViewController: UIViewController {
     lazy var publishButton: UIButton = {
@@ -125,15 +126,26 @@ class PostingViewController: UIViewController {
         
         viewModel.isLoading.asObservable().bind(to: self.view.rx.hudShown).disposed(by: rx.disposeBag)
         viewModel.error.map { $0.localizedDescription }.asObservable().bind(to: self.view.rx.errorMsg).disposed(by: rx.disposeBag)
-        viewModel.publishResult.map({$0.1}).bind(to: self.view.rx.message).disposed(by: rx.disposeBag)
-        viewModel.publishResult.asObservable().subscribe(onNext: { [weak self] result in
-            if result.0 {
+        viewModel.errMsg.bind(to: view.rx.errorMsg).disposed(by: rx.disposeBag)
+        viewModel.success.asDriverOnErrorJustComplete()
+            .drive(onNext: { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
-            }
-        }).disposed(by: rx.disposeBag)
+            })
+            .disposed(by: rx.disposeBag)
         
         // 发布内容
-        publishButton.rx.tap.asObservable().map { [weak self]() -> PostingViewControllerModel.Issue? in
+        publishButton.rx.tap.asObservable()
+            .filter({ [weak self] _ in
+                guard let self = self else { return false }
+                let pattern = "[^0-9^a-zA-Z]{0,}$"
+                let regex = NSPredicate(format: "SELF MATCHES %@", pattern)
+                if !regex.evaluate(with: self.textView.text) {
+                    HUD.flash(.label("内容不允许出现数字、英文字母"), delay: 1.5)
+                    return false
+                }
+                return true
+            })
+            .map { [weak self]() -> PostingViewControllerModel.Issue? in
             guard let self = self else { return nil }
             return PostingViewControllerModel.Issue(
                 remark: self.textView.text,

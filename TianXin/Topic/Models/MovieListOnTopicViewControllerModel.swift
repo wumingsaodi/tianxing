@@ -48,6 +48,27 @@ class MovieListOnTopicViewControllerModel: NSObject, ViewModelType {
             }
             items.accept(movies.map{TopicMovieListCellViewModel(movie: $0)})
         }).disposed(by: rx.disposeBag)
+        //
+        NotificationCenter.default.rx.notification(.LikeMovie)
+            .asDriverOnErrorJustComplete()
+            .map { $0.object as? [String: Any] }
+            .filterNil()
+            .drive(onNext: { info in
+                guard let id = info["id"] as? String, let isLike = info["isLike"] as? Bool else { return }
+                if let idx = items.value.firstIndex(where: {$0.movie.id.toString() == id}) {
+                    var movie = items.value[idx].movie
+                    movie.isLike = isLike ? 1 : 0
+                    if isLike {
+                        movie.videoLikeCount += 1
+                    } else {
+                        movie.videoLikeCount -= 1
+                    }
+                    var value = items.value
+                    value[idx] = TopicMovieListCellViewModel(movie: movie)
+                    items.accept(value)
+                }
+            })
+            .disposed(by: rx.disposeBag)
         return Output(
             items: items.asDriver(),
             selected: input.selection,

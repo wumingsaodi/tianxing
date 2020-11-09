@@ -41,6 +41,7 @@ class HomeDetailVC: UIViewController {
     }  //"https://media.w3.org/2010/05/sintel/trailer.mp4"
     lazy   var playerVC:SDSPlayerVC = {
     let play =   SDSPlayerVC.init(url: url, coverImgUrl:self.coverImgUrl )
+        play.isCanBeiginPlay = true
         play.fullScreenBlock = {[weak self](isFull) in
             self?.leftBut.isHidden = isFull
         }
@@ -147,7 +148,7 @@ extension HomeDetailVC:UICollectionViewDelegate,UICollectionViewDataSource{
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeDetailcollectHeader.className(), for: indexPath) as! HomeDetailcollectHeader
-        header.setHeadModel(model: model.movie)
+        header.setHeadModel(model: model)
         return header
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -202,7 +203,7 @@ class HomeDetailcollectHeader: UICollectionReusableView {
     let lab = UILabel.createLabWith(title: "相似推荐", titleColor: .Hex("#FF3B372B"),  font: .pingfangSC(17))
     return lab
     }()
-    func setHeadModel(model:HomeMovieItem)  {
+    func setHeadModel(model:HomedetailModel)  {
         self.topV.setHeadModel(model: model)
     }
     required init?(coder: NSCoder) {

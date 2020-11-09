@@ -26,13 +26,26 @@ var window: UIWindow?
     /**
      横竖屏切换
      */
-    var blockRotation:UIInterfaceOrientationMask = .portrait {
+    var blockRotation:UIInterfaceOrientationMask = .portrait
+        {
         didSet{
-            if blockRotation.contains(.portrait) {
-                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-            }else{
-                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-            }
+//            self.application(<#T##application: UIApplication##UIApplication#>, supportedInterfaceOrientationsFor: <#T##UIWindow?#>)
+            //            self.application(UIApplication.shared, supportedInterfaceOrientationsFor: sdsKeyWindow)
+//            self.perform(block: {[weak self] in
+//                guard let self = self else{return }
+                if self.blockRotation.contains(.portrait) {
+
+                    UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                    self.perform(block: {
+                        NotificationCenter.default.post(name: UIDevice.orientationDidChangeNotification, object: nil)
+                    }, timel: 0.2)
+                    
+                }else{
+                    UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+
+                }
+//            }, timel: 0.25)
+         
         }
     }
     
@@ -63,6 +76,16 @@ var window: UIWindow?
             .foregroundColor: UIColor.black
         ]
 //        self.islogin()
+////        NotificationCenter.default.addObserver(forName: ., object: <#T##Any?#>, queue: <#T##OperationQueue?#>, using: <#T##(Notification) -> Void#>)
+//        NotificationCenter.default.rx.notification(UIApplication.didChangeStatusBarFrameNotification)
+//            .asObservable()
+//            .subscribe(onNext: { [weak self] notication in
+//                let oritation = UIApplication.shared.statusBarOrientation
+//                if oritation == .portraitUpsideDown || oritation == .portraitUpsideDown {
+//                    self?.blockRotation = .portrait
+//                }
+//            })
+//            .disposed(by: rx.disposeBag)
         return true
     }
     
@@ -152,4 +175,5 @@ extension AppDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return  blockRotation
     }
+    
 }

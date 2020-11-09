@@ -11,7 +11,8 @@ import UIKit
 class HomeMoneyPopView: SDSBaseCoverPopView {
     override func setsubBGView() -> UIView {
         let view = UIView.xib(xibName: "HomeChongzhiView") as! HomeChongzhiView
-        view.sdsSize = CGSize(width: 270, height: 470)
+        view.sdsSize = CGSize(width: 270, height: 485)
+    
         return view
     }
 

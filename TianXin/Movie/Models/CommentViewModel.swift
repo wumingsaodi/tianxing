@@ -24,7 +24,7 @@ struct CommentViewModel {
     let comment: Comment
     init(_ comment: Comment) {
         self.comment = comment
-        username.accept(comment.userName)
+        username.accept(comment.nickName ?? comment.userName)
         avatar.accept(comment.userLogo)
         time.accept(comment.createTime)
         content.accept(comment.remark)

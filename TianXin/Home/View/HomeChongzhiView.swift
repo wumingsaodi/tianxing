@@ -64,7 +64,7 @@ class HomeChongzhiView: UIView {
 //
 //            }
             x += margin + butw
-            if x > Configs.Dimensions.screenWidth - 20 - butw {
+            if x > 270 - 20 - butw {
                 x = 0
                 y += buth + marginY
             }

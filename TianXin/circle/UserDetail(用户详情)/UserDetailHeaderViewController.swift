@@ -17,8 +17,8 @@ class UserDetailHeaderViewController: UIViewController {
     @IBOutlet weak var navBarBackgroundView: UIView!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var genderIcon: UIImageView!
     @IBOutlet weak var attentionButton: AttentionButton!
-    
     @IBOutlet weak var fansNumLabel: UILabel!
     @IBOutlet weak var attentionNumLabel: UILabel!
     @IBOutlet weak var circleNumLabel: UILabel!
@@ -126,6 +126,7 @@ class UserDetailHeaderViewController: UIViewController {
         model.map { "\($0.recommendCount.int)" }.drive(circleNumLabel.rx.text).disposed(by: rx.disposeBag)
         model.map { "\($0.careCount.int)" }.drive(attentionNumLabel.rx.text).disposed(by: rx.disposeBag)
         model.map { "\($0.beCaredCount.int)" }.drive(fansNumLabel.rx.text).disposed(by: rx.disposeBag)
+        model.map { $0.gender.int == 0 ? R.image.icon_man() : R.image.icon_girl()}.drive(genderIcon.rx.image).disposed(by: rx.disposeBag)
         isAttention.drive(attentionButton.rx.isAttented).disposed(by: rx.disposeBag)
         model.map { try? $0.userBackgroundPic.string.asURL() }
             .filterNil()

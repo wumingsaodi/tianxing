@@ -48,7 +48,7 @@ class SDSBaseCoverPopView: UIView {
         }
         
     }
-    static   func ShowSDSCover(isAllowMoreView:Bool = false)->SDSBaseCoverPopView{
+    static   func ShowSDSCover(isAllowMoreView:Bool = false,istap:Bool = true)->SDSBaseCoverPopView{
         let popV = self.popView
         var view: SDSBaseCoverPopView
         if popV == nil {
@@ -71,8 +71,11 @@ class SDSBaseCoverPopView: UIView {
             cover!.backgroundColor = .init(white: 0, alpha: 0.3)
             view.addSubview(cover!)
         }
-        let tap = UITapGestureRecognizer.init(target: view, action: #selector(cancel))
-        cover!.addGestureRecognizer(tap)
+        if istap {
+            let tap = UITapGestureRecognizer.init(target: view, action: #selector(cancel))
+            cover!.addGestureRecognizer(tap)
+        }
+      
         
         
         

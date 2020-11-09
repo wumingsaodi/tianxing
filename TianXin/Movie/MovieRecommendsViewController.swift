@@ -12,31 +12,30 @@ import RxCocoa
 
 class MovieRecommendsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
+    
     var flowLayout: UICollectionViewFlowLayout {
         return collectionView.collectionViewLayout as! UICollectionViewFlowLayout
     }
     
-    var items = BehaviorRelay<[TopicMovieListCellViewModel]>(value: [])
     let itemSelected = PublishSubject<TopicMovieListCellViewModel>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         makeUI()
         
-        items.subscribe(onNext: { value in
-            print(value)
-        }).disposed(by: rx.disposeBag)
-        
-        items.asDriver()
-            .drive(collectionView.rx.items(cellIdentifier: "\(TopicMovieListCell.self)", cellType: TopicMovieListCell.self)){
-                index, viewModel, cell in
-                cell.bind(viewModel)
-            }.disposed(by: rx.disposeBag)
         // 点击cell
         collectionView.rx.modelSelected(TopicMovieListCellViewModel.self)
             .asObservable()
             .bind(to: itemSelected)
             .disposed(by: rx.disposeBag)
+    }
+    
+    func bind(_ items: Driver<[TopicMovieListCellViewModel]>) {
+        items.asDriver()
+            .drive(collectionView.rx.items(cellIdentifier: "\(TopicMovieListCell.self)", cellType: TopicMovieListCell.self)){
+                index, viewModel, cell in
+                cell.bind(viewModel)
+            }.disposed(by: rx.disposeBag)
     }
     
     private func makeUI() {

@@ -35,8 +35,7 @@ extension UIImageView{
             self.kf.setImage(with: url, placeholder: ploderImg, options: [KingfisherOptionsInfoItem.processor(DownsamplingImageProcessor.init(size: imgSize))])
             return
         }
-       
-
+        
         self.kf.setImage(with: ImageResource.init(downloadURL:url), placeholder: ploderImg, options: nil, progressBlock: { (cur, total) in
             if progressBlock != nil {
                 progressBlock!(cur,total)

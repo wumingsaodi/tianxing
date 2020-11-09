@@ -86,7 +86,6 @@ class MovieFavoritesViewController: UIViewController {
     @IBAction func onDelete(_ sender: UIButton) {
         
     }
-    
 }
 
 extension Reactive where Base: NSLayoutConstraint {

@@ -22,6 +22,7 @@ extension Reactive where Base: UIView {
             case .empty:
                 if let v = emptyView {
                     self.base.bringSubviewToFront(v)
+                    adjustUI(v, onView: view)
                 }
                 emptyView?.fadeIn()
                 failedView?.fadeOut()
@@ -46,12 +47,28 @@ extension Reactive where Base: UIView {
             view, isEmptyData in
             let emptyView = self.base.viewWithTag(UIView.emptyViewTag)
             if isEmptyData {
+                adjustUI(emptyView, onView: view)
                 emptyView?.fadeIn()
             } else {
                 emptyView?.fadeOut()
             }
             
         }
+    }
+    
+    private func adjustUI(_ view: UIView?, onView superView: UIView?) {
+        guard let v = view, let sv = superView else { return }
+        var y: CGFloat = 0
+        if sv is UICollectionView {
+            y = sv.subviews.filter({$0 is UICollectionReusableView}).map({$0.frame.maxY}).max() ?? 0
+        } else if let tableView  = sv as? UITableView {
+            y = sv.subviews.filter({$0 is UITableViewHeaderFooterView}).map({$0.frame.maxY}).max()
+                ?? tableView.tableHeaderView?.height ?? 0
+        }
+        v.x = 0
+        v.y = y
+        v.width = sv.width
+        v.height = sv.height - y
     }
 }
 
@@ -71,13 +88,6 @@ extension UIView {
             emptyViewVc.view.tag = UIView.emptyViewTag
             emptyViewVc.view.isHidden = true
             self.addSubview(emptyViewVc.view)
-            if isFullScreen {
-                emptyViewVc.view.frame = bounds
-            } else {
-                emptyViewVc.view.snp.makeConstraints { maker in
-                    maker.center.equalToSuperview()
-                }
-            }
         }
     }
 }

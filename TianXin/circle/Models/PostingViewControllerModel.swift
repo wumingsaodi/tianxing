@@ -35,7 +35,8 @@ class PostingViewControllerModel: NSObject, ViewModelType {
     lazy private var provider = HttpProvider<SquareApi>.default
     let error = ErrorTracker()
     let isLoading = ActivityIndicator()
-    let publishResult = PublishSubject<(Bool, String)>()
+    let errMsg = PublishSubject<String>()
+    let success = PublishSubject<Void>()
     
     struct Input {
         let postEvent: Observable<Issue>
@@ -71,8 +72,8 @@ class PostingViewControllerModel: NSObject, ViewModelType {
                         .trackActivity(self.isLoading)
                 }
                 return Observable.just((issue, [], ""))
-            }).flatMapLatest({ [weak self] (issue, imagesUrls, videoUrl) -> Observable<Bool> in
-                guard let self = self else { return Observable.just(false)}
+            }).flatMapLatest({ [weak self] (issue, imagesUrls, videoUrl) -> Observable<JSON> in
+                guard let self = self else { return Observable.just(.null)}
                 // 已选择发布的圈子
                 let selectedCircleItems = circleItems.value.filter({$0.isSelected.value}).map({"\($0.item.recommendId)"})
                 // 如果是从圈子发布的帖子
@@ -91,13 +92,12 @@ class PostingViewControllerModel: NSObject, ViewModelType {
                                           issueVideo: videoUrl).request(provider: self.provider)
                     .trackError(self.error)
                     .trackActivity(self.isLoading)
-                    .map { $0.code.string == "success" }
-            }).subscribe(onNext: { [weak self] success in
+            }).subscribe(onNext: { [weak self] json in
                 guard let self = self else { return }
-                if !success {
-                    self.publishResult.onNext((false, "发布失败"))
+                if json.code.string != "success" {
+                    self.errMsg.onNext(json.message.string)
                 } else {
-                    self.publishResult.onNext((true, "发布成功"))
+                    self.success.onNext(())
                 }
             }).disposed(by: rx.disposeBag)
         

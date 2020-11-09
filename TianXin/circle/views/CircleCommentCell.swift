@@ -43,6 +43,7 @@ class CircleCommentCell: UITableViewCell {
         self.contentView.addSubview(detailL)
         detailL.snp.makeConstraints { (make) in
             make.left.equalTo(nameL)
+            make.right.lessThanOrEqualToSuperview().offset(-10)
             make.top.equalTo(timeL.snp.bottom).offset(8)
         }
         self.contentView.addSubview(commentBut)
@@ -53,7 +54,7 @@ class CircleCommentCell: UITableViewCell {
         self.contentView.addSubview(loveBut)
         loveBut.snp.makeConstraints { (make) in
             make.centerY.equalTo(commentBut)
-            make.right.equalTo(commentBut.snp.left).offset(-8)
+            make.right.equalTo(commentBut.snp.left).offset(-10)
         }
     }
     lazy var iconv :UIImageView = {
@@ -74,15 +75,15 @@ class CircleCommentCell: UITableViewCell {
             blcok(but.isSelected,"1",String(self!.model.remarkId))
             }
         }
-        but.setButType(type: .imgLeft, padding: 8)
+        but.setButType(type: .imgLeft, padding: 4)
         but.setImage(#imageLiteral(resourceName: "icon_shoucang"), for: .selected)
         return but
     }()
     lazy var commentBut:UIButton = {
-        let but = UIButton.createButWith(title: "0", titleColor: .Hex("#959595"), font: .pingfangSC(13), image: UIImage(named: "")) { (but) in
+        let but = UIButton.createButWith(title: "0", titleColor: .Hex("#959595"), font: .pingfangSC(13), image:#imageLiteral(resourceName: "icon_liuyan")) { (but) in
                  
              }
-        but.setButType(type: .imgLeft, padding: 8)
+        but.setButType(type: .imgLeft, padding: 4)
              return but
     }()
     lazy var timeL:UILabel = {
@@ -101,7 +102,7 @@ class CircleCommentCell: UITableViewCell {
         iconv.loadUrl(urlStr: model.userLogo, placeholder: #imageLiteral(resourceName: "defult_user"),size:CGSize(width: 34, height: 34))
         nameL.text = model.showName
         timeL.text = model.createTime
-        detailL.text = model.issueContent
+        detailL.text =  model.remark  //model.issueContent
         loveBut.isSelected = model.isRmkLike
         loveBut.setTitle("\(model.issueRemkLikeCount)", for: .normal)
         commentBut.setTitle("\(model.issueReplyList)", for: .normal)

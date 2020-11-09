@@ -13,6 +13,8 @@ class LoginVC: SDSBaseVC {
     var nameF:UITextField!
     var passF:UITextField!
     var isNotNeedNav:Bool = false
+    ///登陆成功的回掉，为homegame设计的
+    var successBlock:(()->Void)?
     lazy var vm:LoginViewModel = {
         return LoginViewModel()
     }()
@@ -61,8 +63,13 @@ class LoginVC: SDSBaseVC {
             make.size.equalTo(CGSize(width: 320, height: 342))
         }
         //
-        let visitedBut = UIButton.createButWith(title: "随便逛逛", titleColor: .white, font: .pingfangSC(16)) { (_) in
-          
+        let visitedBut = UIButton.createButWith(title: "随便逛逛", titleColor: .white, font: .pingfangSC(16)) {[weak self] (_) in
+            if kAppdelegate.oldRootVC != nil {
+                sdsKeyWindow?.rootViewController = kAppdelegate.oldRootVC
+                kAppdelegate.oldRootVC = nil
+            }else{
+                self?.navigationController?.popViewController(animated: true)
+            }
         }
         visitedBut.cornor(conorType: .allCorners, reduis: 18, borderWith: 1, borderColor: mainYellowColor)
         self.view.addSubview(visitedBut)
@@ -222,6 +229,10 @@ extension LoginVC {
             if  UserDefaults.standard.bool(forKey: savePasswordKey) {
                 LocalUserInfo.share.sdsUserName = self?.nameF.text ?? ""
                 LocalUserInfo.share.sdsPassword = self?.passF.text ?? ""
+            }
+            if let success = self?.successBlock {
+                success()
+                return
             }
             self?.perform(block: {
               

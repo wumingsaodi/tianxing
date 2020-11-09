@@ -32,6 +32,6 @@ target 'TianXin' do
   pod 'ZLPhotoBrowser'
   pod 'LCTextView'
   
-  pod 'WHC_Debuger'
+#  pod 'WHC_Debuger', :configurations => ['Debug']
 end
 

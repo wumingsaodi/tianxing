@@ -22,4 +22,6 @@ extension Notification.Name {
     static let HomeMenuOnTap = Notification.Name(rawValue: "HomeMenuOnTap")
     // 对帖子发表评论
     static let CommentOnIssue = Notification.Name(rawValue: "CommentOnIssue")
+    // 点赞电影 ===> id: String, isLike: Bool
+    static let LikeMovie = Notification.Name(rawValue: "LikeMovie")
 }

@@ -13,6 +13,7 @@ class CircleHomeVC: SDSBaseVC {
     var models:[TopRecomedModel] = [TopRecomedModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.extendedLayoutIncludesOpaqueBars = true
         self.navigationController?.navigationBar.isHidden = true
         setUI()
         
@@ -36,10 +37,17 @@ class CircleHomeVC: SDSBaseVC {
             self.navigationController?.pushViewController(vc, isNeedLogin: true, animated: true)
         }
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        selectedTittlesv.scollToIndex(index: 0)
-        self.selectedVCs.scollToIndex(index: 0)
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        selectedTittlesv.scollToIndex(index: 0)
+//        self.selectedVCs.scollToIndex(index: 0)
+//    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
     }
     lazy var bgScrollv:UIScrollView = {
         let bgScrollv = UIScrollView()
@@ -50,13 +58,15 @@ class CircleHomeVC: SDSBaseVC {
         self.view.addSubview(bgScrollv)
         bgScrollv.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-5)    //.offset(-6)
+            make.bottom.equalToSuperview().offset(-kbottomtoolBar-5)    //.offset(-6)
             make.top.equalToSuperview().offset(KnavHeight + 20)
+//            make.bottom.equalToSuperview().offset(-kbottomtoolBar)
         }
         bgScrollv.contentLayoutGuide.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().offset(KnavHeight + 20)
             //            make.height.equalTo(KScreenH - KnavHeight - 20 )
-            make.bottom.equalToSuperview().offset(70)
+            make.bottom.equalToSuperview().offset(maxOffsetY)  //.offset(maxOffsetY - 5 - kbottomtoolBar )
             //            make.size.equalTo(CGSize(width: Configs.Dimensions.screenWidth, height: KScreenH + 100))
         }
         let whiteBgV = UIView()

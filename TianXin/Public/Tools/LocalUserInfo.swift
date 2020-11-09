@@ -132,6 +132,10 @@ class LocalUserInfo: NSObject {
     private var _userid:Int = 0
     var userId:Int? {
         set{
+            if userId ?? 0 == 0 {//账号删除了
+                //充值弹框限制消失
+                UserDefaults.standard.removeObject(forKey: NoHomeMoenyPopShow)
+            }
             
                 for block in isLoginBlocks {
                     if newValue == nil {
@@ -140,6 +144,7 @@ class LocalUserInfo: NSObject {
                         block(true)
                     }
                 }
+            
             _userid = newValue ?? 0
             UserDefaults.standard.set(newValue, forKey: LoginIdKey)
         }

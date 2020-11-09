@@ -108,6 +108,26 @@ extension HomeDownBannerItemView:UICollectionViewDelegate,UICollectionViewDataSo
         cell.setImg(img: imgs[indexPath.row], name: titles[indexPath.row])
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if !kAppdelegate.islogin() {
+            return
+        }
+        NetWorkingHelper.normalPost(url: "/gl/user/getAppHome", params: [:]) { (dict) in
+            guard let url = dict["data"] as? String else{
+                return
+            }
+            LocalUserInfo.share.getLoginInfo { (model) in
+            
+            }
+            let gameUrl  = url + "?token=" + (LocalUserInfo.share.sessionId  ?? "")
+            if   let superV = self.superview as? SDSBaseCoverPopView{
+                superV.cancel()
+            }
+            let webVc = SDSBaseWebVC.init(url: gameUrl)
+            kAppdelegate.getNavvc()?.pushViewController(webVc, animated: true)
+            
+        }
+    }
     
     
 }

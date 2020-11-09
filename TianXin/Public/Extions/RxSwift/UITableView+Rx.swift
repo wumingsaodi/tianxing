@@ -28,9 +28,15 @@ extension Reactive where Base: UITableView {
             } else {
                 tableView.mj_footer?.resetNoMoreData()
             }
-            
         }
     }
+    var hiddenRefreshFooter: Binder<Bool> {
+        return Binder<Bool>(self.base) {
+            tableView, hidden in
+            tableView.mj_footer?.isHidden = hidden
+        }
+    }
+    
     var isLodingData: Binder<Bool> {
         return Binder(self.base) {
             tableView, active in
@@ -39,6 +45,14 @@ extension Reactive where Base: UITableView {
             } else {
                 tableView.mj_header?.endRefreshing()
             }
+        }
+    }
+    
+    var headerViewHeight: Binder<CGFloat> {
+        return Binder(self.base) {
+            tableView, height in
+            tableView.tableHeaderView?.height = height
+            tableView.reloadData()
         }
     }
 }

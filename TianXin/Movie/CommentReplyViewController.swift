@@ -81,6 +81,8 @@ class CommentReplyViewController: UIViewController {
         output.items.drive(onNext: { [weak self] items in
             self?.headerText.accept("全部回复（\(items.count)）")
         }).disposed(by: rx.disposeBag)
+        
+        output.items.map{$0.isEmpty}.drive(tableView.rx.hiddenRefreshFooter).disposed(by: rx.disposeBag)
     }
 
 }
